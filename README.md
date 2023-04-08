@@ -8,5 +8,5 @@
 
 2023/4/8提交:
 1. 加入Login Component
-2  增加NavBar，並加入登入/登出按鈕
+2. 增加NavBar，並加入登入/登出按鈕
 3. 增加member路由及頁面
