@@ -2,12 +2,15 @@ import React, { useReducer } from 'react';
 import { Route,Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Movie } from './pages/Movie';
+import { Member } from './pages/Member';
 import { Ticknumber } from './pages/Ticknumber';
-import { OrderContext, OrderInitialState, OrderReducer } from './stroe/store';
+import { OrderContext, OrderInitialState, OrderReducer } from './stroe';
 import { ThemeProvider } from 'styled-components';
+import { Header } from './components';
 import './assets/scss/all.scss';
-import { Loading } from './components/Loading';
+
 // import { GlobalStyle } from './assets/GlobalStyle';
+
 
 
 function App() {
@@ -15,9 +18,10 @@ function App() {
   return (
     <OrderContext.Provider value={reducer}>
       <ThemeProvider theme={{}}>
-        {/* <Loading/> */}
+        <Header/>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
+          <Route path="/member/:id" element={<Member/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
           <Route path="/ticknumber" element={<Ticknumber/>}></Route>
         </Routes>

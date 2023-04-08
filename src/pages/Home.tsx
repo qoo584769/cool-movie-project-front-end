@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-
 import { HomeOrderForm } from '../components/HomeOrderForm';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Loading } from '../components/'; 
 
 const api = 'https://api.unsplash.com/search/photos/';
 const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS
@@ -19,20 +19,24 @@ export interface MovieDataType {
 
 export const Home: React.FC<HomeProps> = ({ }) => {
 	const [list, setList] = useState<MovieDataType[]>([])
+	const [loading, setloading] = useState(false)
+	
 	useEffect(() => {
 		(async function () {
+			setloading(true)
 			try {
 				let response = await axios.get(`${api}?client_id=${accessKey}&query=movie poster&page=1&per_page=3`);
 				const { results } = response.data
 				setList(results)
+				setloading(false)
 			} catch (error) {
 			}
 		}())
 	}, [])
 
-
 	return (
 		<>
+			<Loading isActive={loading}/>
 			<HomeOrderForm />
 			<div className="container">
 				<div className="row mt-4">

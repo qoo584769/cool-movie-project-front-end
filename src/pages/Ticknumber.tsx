@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import { OrderContext } from '../stroe/store';
+import { OrderContext } from '../stroe';
 interface OrderFastProps {
 
 }
