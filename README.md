@@ -10,3 +10,8 @@
 1. 加入Login Component
 2. 增加NavBar，並加入登入/登出按鈕
 3. 增加member路由及頁面
+
+## 專案啟動
+- 終端機輸入 npm ci 安裝。 
+- 使用 npm ci 安裝保持版本一致，新套件再使用 npm i xxx
+```
