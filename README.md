@@ -17,7 +17,7 @@
 
 ## 關閉Typescript 偵測
 ```
-  請將下面的屬性，貼到typescript.config，即可關閉typescript偵測，然後重新啟用專案npm run start，就可以在無不偵測typescript的環填下開發了
+  請將下面的屬性，貼到typescript.config，即可關閉typescript偵測，然後重新啟用專案npm run start，就可以在不偵測typescript的環填下開發了
     "strict": false,
     "noImplicitAny": false,
     "noImplicitThis": false,
