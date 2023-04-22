@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Movie } from './pages/Movie';
 import { Member } from './pages/Member';
 import { Ticknumber } from './pages/Ticknumber';
+import { Seats } from './pages/Seats';
 import { OrderContext, OrderInitialState, OrderReducer } from './stroe';
 import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/member/:id" element={<Member/>}></Route>
           <Route path="/movie/:id" element={<Movie/>}></Route>
           <Route path="/ticknumber" element={<Ticknumber/>}></Route>
+          <Route path="/chooseSeates/:tickNumber" element={<Seats/>}></Route>
         </Routes>
       </ThemeProvider>
     </OrderContext.Provider>

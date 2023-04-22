@@ -9,9 +9,10 @@ export interface OrderType extends OrderFormType {
     seat_remain?:[] 
     seat_remain_number?:number
     seat_ordered?:[]
-}
-
-export interface OrderState {
+    status:"quick" | "member"
+  }
+  
+  export interface OrderState {
     orderList: OrderType;
     total:number
 }
@@ -25,7 +26,7 @@ export interface OrderAction {
 
 // 建立我們的 Context
 export const OrderInitialState: OrderState = { 
-    orderList: {movieIsOnId:"",movie_name:"",movie_date:"",movie_time:"",movie_size:"",quantity:1},
+    orderList: {movieIsOnId:"",movie_name:"",movie_date:"",movie_time:"",movie_size:"",quantity:1,status:"quick",},
     total:0 
 }
 
