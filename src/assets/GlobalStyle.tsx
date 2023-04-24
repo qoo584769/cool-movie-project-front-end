@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
+interface GlobalStyleType{}
+
+export const GlobalStyle = createGlobalStyle<GlobalStyleType>`
   body{
     background-color: #cfc;
       .card{
