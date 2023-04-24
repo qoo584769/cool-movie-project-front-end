@@ -1,5 +1,5 @@
 import type { RouteObject } from "react-router-dom";
-import {Home, Member, Movie, Ticknumber} from "./pages"
+import {Home, Member, Movie, Seats, Ticknumber} from "./pages"
 
 const routes: RouteObject[] = [
     {
@@ -17,6 +17,10 @@ const routes: RouteObject[] = [
     {
       path: "/ticknumber",
       element: <Ticknumber />,
+    },
+    {
+      path: "/chooseSeates/:tickNumber",
+      element: <Seats />,
     },
   ];
 

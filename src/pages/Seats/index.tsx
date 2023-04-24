@@ -1,7 +1,6 @@
 import React, { MutableRefObject, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { SeatList } from '../components/SeatList';
-import { SeatList2 } from '../components/SeatList2';
+import { SeatList } from './components/SeatList';
 import axios from 'axios';
 
 interface SeatsProps {

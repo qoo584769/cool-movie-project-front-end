@@ -1,6 +1,6 @@
 import React, { MutableRefObject,RefObject, useRef,useState } from 'react'
 import styled,{DefaultTheme, ThemedStyledProps} from 'styled-components'
-import { SeatsType } from '../pages/Seats'
+import { SeatsType } from '../index'
 
 interface SeatStatusType{
 	seatStatus:boolean,

@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
 import './assets/scss/all.scss';
 import routes from './routes';
+
 // import { GlobalStyle } from './assets/GlobalStyle';
 
 

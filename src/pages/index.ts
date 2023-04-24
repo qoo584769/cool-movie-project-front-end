@@ -1,4 +1,5 @@
 export * from "./Home";
-export * from "./Member";
-export * from "./Movie";
+export * from "./Mmeber";
+export * from "./Movie/Movie";
+export * from "./Seats";
 export * from "./Ticknumber";
