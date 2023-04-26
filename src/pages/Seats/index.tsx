@@ -7,28 +7,30 @@ interface SeatsProps {
 }
 
 export interface SeatsType {
-	seat_id:string,
-	is_booked:boolean	
+	seat_id: string,
+	is_booked: boolean
 }
+
+const url = process.env.REACT_APP_REMOTE_URL
 
 export const Seats: React.FC<SeatsProps> = ({ }) => {
 	const tickNumber = Number(useParams().tickNumber)
 	const [seats, setSeats] = useState<SeatsType[]>([])
-	useEffect(()=>{
-		(async function(){
-		try {
-			let response = await axios.get('http://127.0.0.1:3000/seats')
-			setSeats(response.data.data[0].seatStatus)
-		} catch(error){
-			console.log('error',error);
-		}
+	useEffect(() => {
+		(async function () {
+			try {
+				let response = await axios.get(`${url}/seats`)
+				setSeats(response.data.data[0].seatStatus)
+			} catch (error) {
+				console.log('error', error);
+			}
 		}())
-	},[])
+	}, [])
 
 	const [selectSeat, setSelectSeat] = useState<string[]>([]);
-	console.log(' seats=> ',seats)
+	console.log(' seats=> ', seats)
 
-	const pickSeat = (seat_id:string,selectRef:MutableRefObject<boolean>) =>{
+	const pickSeat = (seat_id: string, selectRef: MutableRefObject<boolean>) => {
 		setSelectSeat((prevData) => {
 			if (prevData.length < tickNumber && !prevData.includes(seat_id)) {
 				selectRef.current = !(selectRef.current)
@@ -45,16 +47,16 @@ export const Seats: React.FC<SeatsProps> = ({ }) => {
 		})
 		// selectRef.current = !(selectRef.current)
 	}
-	console.log('selectSeat => ',selectSeat)
+	console.log('selectSeat => ', selectSeat)
 	return (
 		<>
 			<p>你已選擇了<span>{selectSeat.length}</span>位子</p>
 			<p>選擇座位為<span>{`${selectSeat}`}</span></p>
 			<ul className='theater'>
-				{seats.map((seat)=>{
-					return(
+				{seats.map((seat) => {
+					return (
 						// <li key={seat.seat_id}>{seat.seat_id}</li>
-						<SeatList key={seat.seat_id} {...seat} onClick={pickSeat}/>
+						<SeatList key={seat.seat_id} {...seat} onClick={pickSeat} />
 					)
 				})}
 			</ul>
