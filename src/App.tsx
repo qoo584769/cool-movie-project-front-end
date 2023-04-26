@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { Route,Routes,useRoutes } from 'react-router-dom';
+import { Route, Routes, useRoutes } from 'react-router-dom';
 import { OrderContext, OrderInitialState, OrderReducer } from './stroe';
 import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
@@ -16,7 +16,7 @@ function App() {
   return (
     <OrderContext.Provider value={reducer}>
       <ThemeProvider theme={{}}>
-        <Header/>
+        <Header />
         {routing}
       </ThemeProvider>
     </OrderContext.Provider>

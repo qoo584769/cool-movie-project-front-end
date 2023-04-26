@@ -13,8 +13,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ }) => {
 	console.log('process.env', process.env)
 	const url = 'http://localhost:3010/users/sign_in';
-	const [userToken, setUserToken] = useLocalStorage('userToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzlhMGZjZWNmN2FlNjA0Nzg3ZDQ4YyIsImlhdCI6MTY4MTUwNTAxNCwiZXhwIjoxNjgyMTA5ODE0fQ.guYZPwwFxL5JZ5dqwCFFaYL8rnipSj-vMgLNR9-2cyU');
-	const currentTime = Math.floor(Date.now() / 1000);
 	const [isLogin, setIsLogin] = useState(false)
 	const navigate = useNavigate()
 	const memberId = JSON.stringify(Math.ceil(Math.random() * 10000000))
