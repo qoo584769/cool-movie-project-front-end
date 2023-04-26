@@ -17,7 +17,6 @@ const rotation = keyframes`
 `;
 
 export const Loading = styled.div<LoadingType>`
-
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -34,7 +33,7 @@ export const Loading = styled.div<LoadingType>`
 		display: block;
 		height: 55px;
 		width: 55px;
-		border: 5px solid #e77df0b3;
+		border: 5px solid #ffc107;
 		border-radius: 50%;
 		border-top: none;
 		border-right: none;

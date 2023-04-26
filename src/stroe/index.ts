@@ -1,5 +1,5 @@
 import { createContext,useReducer, Dispatch } from "react";
-import { OrderFormType } from "../components";
+import { OrderFormType } from "../pages/Home/components/HomeOrderForm";
 
 // 定義我們的狀態型別
 export interface OrderType extends OrderFormType {

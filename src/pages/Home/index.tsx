@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { HomeOrderForm } from '../components/HomeOrderForm';
+import { HomeOrderForm } from './components/HomeOrderForm';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Loading } from '../components/'; 
+import { Loading } from '../../components'; 
 
 const api = 'https://api.unsplash.com/search/photos/';
 const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS

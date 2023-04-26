@@ -39,7 +39,6 @@ export const Movie: React.FC<MovieInfoProps> = ({}) => {
         <div>
             <p>圖片id: {id}</p>
             <img src={photo?.urls?.small} alt="" />
-
         </div>
     );
 }
