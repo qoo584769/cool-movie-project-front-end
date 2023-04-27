@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import axios from 'axios'
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import useLocalStorage from 'use-local-storage';
+import authFetch from '../utilities/authFetch';
 import * as bootstrap from 'bootstrap';
 
 
@@ -28,7 +29,7 @@ export const Login: React.FC<LoginProps> = ({ }) => {
 	const loginForm = (data: LoginType) => {
 		(async function () {
 			try {
-				let response = await axios.post('http://localhost:3010/users/sign_in', {
+				let response = await authFetch.post('/users/sign_in', {
 					email: data.useremail,
 					password: data.password
 				})
@@ -39,7 +40,7 @@ export const Login: React.FC<LoginProps> = ({ }) => {
 				console.log('error', error);
 			}
 		}())
-}
+	}
 
 	return (
 		<>
