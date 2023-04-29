@@ -3,3 +3,7 @@ export * from "./Member";
 export * from "./Movie/Movie";
 export * from "./Seats";
 export * from "./Ticknumber";
+export * from "./MemberInfo";
+export * from "./MemberAccount";
+export * from "./MemberBonus";
+export * from "./MemberOrder";
