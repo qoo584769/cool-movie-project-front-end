@@ -11,7 +11,8 @@ export interface SeatsType {
 	is_booked: boolean
 }
 
-const url = process.env.REACT_APP_REMOTE_URL
+// const url = process.env.REACT_APP_REMOTE_URL
+const url = "https://9b71893b-9621-4845-b234-553e758f8f8a.mock.pstmn.io"
 
 export const Seats: React.FC<SeatsProps> = ({ }) => {
 	const tickNumber = Number(useParams().tickNumber)
@@ -45,7 +46,6 @@ export const Seats: React.FC<SeatsProps> = ({ }) => {
 
 			return prevData;
 		})
-		// selectRef.current = !(selectRef.current)
 	}
 	console.log('selectSeat => ', selectSeat)
 	return (

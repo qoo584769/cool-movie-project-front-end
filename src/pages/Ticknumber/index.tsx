@@ -19,7 +19,7 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 	const onSubmit = (data: TickNumberType) => {
 		navigate(`/chooseSeates/${(data.tickNum)}`);
 	}
-	console.log('state', state)
+	// console.log('state', state)
 	return (
 		<div>
 			<p>{JSON.stringify(state)}</p>
