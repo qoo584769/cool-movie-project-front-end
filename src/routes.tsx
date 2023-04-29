@@ -1,5 +1,15 @@
 import type { RouteObject } from "react-router-dom";
-import { Home, Member, Movie, Seats, Ticknumber } from "./pages"
+import { Navigate } from "react-router-dom";
+import {
+  Home, 
+  Member,
+  Movie, 
+  Seats, 
+  Ticknumber,MemberInfo,
+  MemberAccount,
+  MemberBonus,
+  MemberOrder
+} from "./pages"
 
 const routes: RouteObject[] = [
   {
@@ -7,9 +17,30 @@ const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/member/:id",
-    element: <Member />,
-    children: []
+    path: "/member/*",
+    element: <Member/>,
+    children: [
+      {
+        path: "",
+        element: <Navigate to="/" />,
+      },
+      {
+        path: ":id",
+        element:<MemberInfo/>,
+      },
+      {
+        path: ":id/account",
+        element:<MemberAccount/>,
+      },
+      {
+        path: ":id/bonus",
+        element:<MemberBonus/>,
+      },
+      {
+        path: ":id/order",
+        element:<MemberOrder/>,
+      },
+    ]
   },
   {
     path: "/movie/:id",
