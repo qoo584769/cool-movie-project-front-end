@@ -77,7 +77,7 @@ export const MemberInfo: React.FC = () => {
             <input
               type="submit"
               className="button align-self-end"
-              value="登入"
+              value="儲存"
             />
           </form>
         </div>
