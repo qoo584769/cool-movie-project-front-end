@@ -36,7 +36,7 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 					type: "ADD_MEMBER_DATA",
 					payload: {
 						memberId: userId,
-						mamberName: userName,
+						memberName: userName,
 						status: "member"
 					}
 				})
