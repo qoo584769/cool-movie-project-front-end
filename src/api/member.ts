@@ -1,11 +1,5 @@
 import { authFetch } from '../utilities/authFetch'
-
-interface I_Member {
-    nickName: string;
-    phoneNumber: string;
-    birthday: string;
-    profilePic: string;
-}
+import { I_MEMBER} from '../interface/member'
 
 export const getMember = async () => {
     return await authFetch.get(`/api/member/getUser`);
@@ -16,7 +10,7 @@ export const updateMember = async ({
     phoneNumber,
     birthday,
     profilePic
-}: I_Member) => {
+}: I_MEMBER) => {
     return await authFetch.post(`/api/member/updateUser`, {
         nickName,
         phoneNumber,
