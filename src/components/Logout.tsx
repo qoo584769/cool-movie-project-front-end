@@ -13,15 +13,14 @@ export const Logout: React.FC<LogoutProps> = ({ isLogin, setIsLogin }) => {
 
 	const clickHandler = () => {
 		localStorage.removeItem("userToken")
-		localStorage.removeItem("userId")
-		localStorage.removeItem("userName")
-		setIsLogin(state => !state)
+		setIsLogin(false)
 		if (isLogin) {
 			dispatch({
 				type: "CLEAR_ORDER",
 				payload: {
 					memberId: null,
-					status: "quick"
+					status: "quick",
+					mamberName: "",
 				}
 			})
 			navigate("/")

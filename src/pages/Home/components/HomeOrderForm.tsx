@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom';
 import { OrderContext } from '../../../stroe/'
 
-
-
 interface OrderFormProps {
 }
 
@@ -17,24 +15,25 @@ export interface OrderFormType {
 
 export const HomeOrderForm: React.FC<OrderFormProps> = ({ }) => {
   const [state, dispatch] = useContext(OrderContext);
-  // console.log('state',state)
   const { register, handleSubmit } = useForm<OrderFormType>();
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userId = (localStorage.getItem("userId")) ? (localStorage.getItem("userId")) : null
-    const memberStatus = (localStorage.getItem("userId")) ? "member" : "quick"
+    const userId = (state.orderList.memberId) ? (state.orderList.memberId) : null
+    const memberStatus = (state.orderList.memberId) ? "member" : "quick"
+    const mamberName = (state.orderList.mamberName) ? (state.orderList.mamberName) : ""
+
     dispatch({
       type: "CLEAR_ORDER",
       payload: {
         memberId: userId,
-        status: memberStatus
+        status: memberStatus,
+        mamberName: mamberName
       }
     })
   }, [dispatch])
 
   const onSubmit = (data: OrderFormType) => {
-    console.log(' data=> ', data)
     dispatch({
       type: "ADD_ORDER_FROM_HOME",
       payload: {
