@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { OrderAction } from "../stroe";
+import { OrderAction } from "../store";
 
 export const logoutClear = (dispatch: Dispatch<OrderAction>) => {
     localStorage.removeItem("userToken")

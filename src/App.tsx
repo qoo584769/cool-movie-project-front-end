@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { Route, Routes, useRoutes } from 'react-router-dom';
-import { OrderContext, OrderInitialState, OrderReducer } from './stroe';
+import { OrderContext, OrderInitialState, OrderReducer } from './store';
 import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
 import './assets/scss/all.scss';

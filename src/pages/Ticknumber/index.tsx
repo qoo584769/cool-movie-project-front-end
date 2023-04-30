@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { useContext } from 'react'
-import { OrderContext } from '../../stroe';
+import { OrderContext } from '../../store';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 interface OrderFastProps {

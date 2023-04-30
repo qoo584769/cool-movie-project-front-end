@@ -17,28 +17,28 @@ const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/member/*",
+    path: "/member",
     element: <Member/>,
     children: [
       {
         path: "",
-        element: <Navigate to="/" />,
-      },
-      {
-        path: ":id",
         element:<MemberInfo/>,
       },
       {
-        path: ":id/account",
+        path: "account",
         element:<MemberAccount/>,
       },
       {
-        path: ":id/bonus",
+        path: "bonus",
         element:<MemberBonus/>,
       },
       {
-        path: ":id/order",
+        path: "order",
         element:<MemberOrder/>,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" />,
       },
     ]
   },
@@ -53,6 +53,10 @@ const routes: RouteObject[] = [
   {
     path: "/chooseSeates/:tickNumber",
     element: <Seats />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
 

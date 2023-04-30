@@ -1,4 +1,7 @@
 .member {
+    min-height: calc(100vh - 63.2px);
+    background-color: rgb(63, 63, 63);
+
     label {
         display: block;
     }
@@ -28,6 +31,10 @@
         outline: none;
         cursor: pointer;
         box-sizing: border-box;
+
+        &:hover {
+            background-color: lighten($primary, 10%);
+        }
     }
 
     p {
@@ -35,8 +42,11 @@
         margin: 0;
     }
 
-    min-height: calc(100vh - 58.4px);
-    background-color: rgb(63, 63, 63);
+    &-form-error {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
 
     &-sidebar {
         min-width: 280px;
