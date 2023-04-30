@@ -87,7 +87,6 @@ export const MemberInfo: React.FC = () => {
         );
         if (error) {
           alert(error);
-          setIsSubmitting(false);
           return;
         }
         const { data: response } = await uploadImage(file);
