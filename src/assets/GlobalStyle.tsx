@@ -1,11 +1,14 @@
+/* eslint-disable no-mixed-operators */
 import { createGlobalStyle } from 'styled-components';
 
-interface GlobalStyleType{}
+interface GlobalStyleType{
 
+}
+// eslint-disable-next-line no-undef
 export const GlobalStyle = createGlobalStyle<GlobalStyleType>`
   body{
-    background-color: #cfc;
-      .card{
+    background-color: #fcc;
+          .card{
         /* background-color: #cfc; */
       } 
     }
