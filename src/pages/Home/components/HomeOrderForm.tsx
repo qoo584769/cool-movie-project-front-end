@@ -21,14 +21,14 @@ export const HomeOrderForm: React.FC<OrderFormProps> = ({ }) => {
   useEffect(() => {
     const userId = (state.orderList.memberId) ? (state.orderList.memberId) : null
     const memberStatus = (state.orderList.memberId) ? "member" : "quick"
-    const mamberName = (state.orderList.mamberName) ? (state.orderList.mamberName) : ""
+    const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 
     dispatch({
       type: "CLEAR_ORDER",
       payload: {
         memberId: userId,
         status: memberStatus,
-        mamberName: mamberName
+        memberName: memberName
       }
     })
   }, [dispatch])

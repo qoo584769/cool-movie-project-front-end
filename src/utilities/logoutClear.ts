@@ -8,7 +8,7 @@ export const logoutClear = (dispatch: Dispatch<OrderAction>) => {
         payload: {
             memberId: null,
             status: "quick",
-            mamberName: "",
+            memberName: "",
         }
     })
 }

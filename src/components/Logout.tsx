@@ -20,7 +20,7 @@ export const Logout: React.FC<LogoutProps> = ({ isLogin, setIsLogin }) => {
 				payload: {
 					memberId: null,
 					status: "quick",
-					mamberName: "",
+					memberName: "",
 				}
 			})
 			navigate("/")

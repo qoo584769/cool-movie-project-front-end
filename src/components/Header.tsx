@@ -13,13 +13,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ }) => {
 	const [state, dispatch] = useContext(OrderContext);
 	const [isLogin, setIsLogin] = useState(false)
-	const memberId = (state.orderList.memberId) ? (state.orderList.memberId) : null
-	const memberName = (state.orderList.mamberName) ? (state.orderList.mamberName) : ""
+	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
+	const memberId = (localStorage.getItem("userToken")) ? (JSON.parse(atob(token?.split(".")[1] || "")).id) : null
 
 	useEffect(() => {
 		if (token) {
 			const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
+			const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
 			const currentTime = Math.floor(Date.now() / 1000);
 
 			// 如果原本的token沒過期，則繼續向後端拿資料
@@ -28,13 +29,12 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 					try {
 						let response = await authFetch.get('/api/member/getUser')
 						const userName = response.data.data.nickName
-						const userId = response.data.data._id
 
 						dispatch({
 							type: "ADD_MEMBER_DATA",
 							payload: {
 								memberId: userId,
-								mamberName: userName,
+								memberName: userName,
 								status: "member"
 							}
 						})
