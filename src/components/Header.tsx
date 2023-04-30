@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useContext, MouseEvent } from 'react'
 import { NavLink } from 'react-router-dom';
-import { OrderContext } from '../stroe'
+import { OrderContext } from '../store'
 import { Login, Logout } from './';
 import { authFetch, logoutClear } from '../utilities';
 
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 			<div className="container-fluid justify-content-end">
 				{isLogin ? (
 					<>
-						<NavLink className="nav-link navLink" to={`/member/${memberId}`} onClick={memberCheck}>
+						<NavLink className="nav-link navLink" to={`/member`} onClick={memberCheck}>
 							<i className=" bi-person-circle btn-outline-warning" ></i>
 						</NavLink>
 						<span className='me-3'>{memberName} 您好</span>

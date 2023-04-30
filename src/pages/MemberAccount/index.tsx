@@ -1,7 +1,7 @@
 import React from "react";
 import { MemberContainer } from "../../components/MemberContainer";
 
-export const MemberAccount: React.FC = () => {
+export const MemberAccount: React.FC = ({}) => {
   return (
     <>
       <MemberContainer title="帳號設定">

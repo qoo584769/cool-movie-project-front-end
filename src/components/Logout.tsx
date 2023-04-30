@@ -1,5 +1,5 @@
 import React, { useContext, useState, Dispatch, SetStateAction } from 'react'
-import { OrderContext } from '../stroe'
+import { OrderContext } from '../store'
 import { useNavigate } from 'react-router-dom';
 
 interface LogoutProps {
