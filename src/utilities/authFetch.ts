@@ -7,7 +7,7 @@ const authFetch = axios.create({
 
 // request 攔截封裝
 authFetch.interceptors.request.use((config) => {
-    const token = (localStorage.getItem("userToken")) ? (JSON.parse(localStorage.getItem("userToken") || "")) : null
+    const token = (localStorage.getItem("userToken")) ? (localStorage.getItem("userToken") || "") : null
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -26,4 +26,4 @@ authFetch.interceptors.response.use(
     }
 );
 
-export default authFetch;
+export { authFetch };

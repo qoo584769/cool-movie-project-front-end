@@ -1,19 +1,19 @@
-import React, { MutableRefObject,RefObject, useRef,useState } from 'react'
-import styled,{DefaultTheme, ThemedStyledProps} from 'styled-components'
+import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
+import styled, { DefaultTheme, ThemedStyledProps } from 'styled-components'
 import { SeatsType } from '../index'
 
-interface SeatStatusType{
-	seatStatus:boolean,
-	setRef:boolean
+interface SeatStatusType {
+	seatStatus: boolean,
+	setRef: boolean
 }
 
 const Li = styled.li<SeatStatusType>`
-    background-color: ${(props)=>{
-		if(!props.seatStatus){
+    background-color: ${(props) => {
+		if (!props.seatStatus) {
 			return "#fcc"
-		}else if(props.setRef){
+		} else if (props.setRef) {
 			return "#cfc"
-		}else{
+		} else {
 			return "#eee"
 		}
 	}}
@@ -22,18 +22,18 @@ const Li = styled.li<SeatStatusType>`
 
 interface SeatListProps extends SeatsType {
 	onClick: (
-		seat_id:string,
-		selectRef:MutableRefObject<boolean>
-	)=>void
+		seat_id: string,
+		selectRef: MutableRefObject<boolean>
+	) => void
 }
 
-export const SeatList: React.FC<SeatListProps> = ({seat_id,is_booked,onClick}) => {
+export const SeatList: React.FC<SeatListProps> = ({ seat_id, is_booked, onClick }) => {
 	const selectRef = useRef(false)
-	
-	const clickHandler = (event: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>) =>{
-		if(is_booked){
-			onClick(seat_id,selectRef)			
-		}else{
+
+	const clickHandler = (event: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>) => {
+		if (is_booked) {
+			onClick(seat_id, selectRef)
+		} else {
 			alert("該座位已被劃位")
 		}
 	}
@@ -43,7 +43,7 @@ export const SeatList: React.FC<SeatListProps> = ({seat_id,is_booked,onClick}) =
 			onClick={clickHandler}
 			setRef={selectRef.current}
 		>
-		{seat_id}
+			{seat_id}
 		</Li>
 
 	);
