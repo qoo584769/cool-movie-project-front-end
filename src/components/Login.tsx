@@ -5,23 +5,21 @@ interface LoginProps {
 	isLogin: boolean
 	setIsLogin: Dispatch<SetStateAction<boolean>>
 }
-interface LoginType {
-	useremail: string,
-	password: string
-}
 
 export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin }) => {
 	const [currentTab, setCurrentTab] = useState('login')
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const myModal = useRef<bootstrap.Modal | null>(null);
-
+	let openModal = () => {
+		myModal?.current?.show()
+	}
 	useEffect(() => {
 		myModal.current = new bootstrap.Modal(modalRef.current as HTMLElement);
 	}, []);
 
 	return (
 		<>
-			<button type="button" className="btn btn-sm btn btn-outline-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+			<button type="button" className="btn btn-sm btn btn-outline-warning me-2" onClick={openModal}>
 				登入 / 註冊
 			</button>
 			<div className="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabIndex={-1} ref={modalRef}>

@@ -63,7 +63,7 @@ export const MemberInfo: React.FC = () => {
       alert(response.message);
     } catch (error) {
       alert("系統錯誤請聯絡管理員");
-    } finally{
+    } finally {
       setIsSubmitting(false);
     }
   };
