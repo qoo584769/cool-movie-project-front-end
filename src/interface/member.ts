@@ -15,6 +15,8 @@ export interface I_FormData {
 }
 
 export interface CatchErrorMessage {
+    code: string,
+    message: string,
     response: {
         status: number
         data: {
