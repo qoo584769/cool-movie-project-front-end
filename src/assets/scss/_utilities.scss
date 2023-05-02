@@ -1,11 +1,31 @@
-body{
-    background-color: $primary-background;
-    color: rgba(255, 255, 255, 0.9);
-    font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif !important;
-    font-size: 1.1em;
+body {
+	background-color: $primary-background;
+	color: rgba(255, 255, 255, 0.9);
+	font-family: arial, "Microsoft JhengHei", "微軟正黑體", sans-serif !important;
+	font-size: 1.1em;
 }
 
 
 ul li {
-    list-style: none;
+	list-style: none;
+}
+
+.invalid-feedback {
+	color: $invalid;
+	margin-bottom: 1.2rem;
+}
+
+.valid-feedback {
+	color: $valid;
+	margin-bottom: 1.2rem;
+}
+
+.btn-outline-warning {
+	color: $primary;
+	border-color: $primary;
+
+	&:hover {
+		background-color: $primary;
+		border-color: $primary;
+	}
 }

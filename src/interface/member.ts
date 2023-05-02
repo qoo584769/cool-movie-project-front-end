@@ -12,4 +12,13 @@ export interface I_FormData {
     phoneNumber: string;
     birthday: string;
     profilePic: string;
-  }
+}
+
+export interface CatchErrorMessage {
+    response: {
+        status: number
+        data: {
+            message: string
+        }
+    };
+}

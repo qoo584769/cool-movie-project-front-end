@@ -15,7 +15,6 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 	const [isLogin, setIsLogin] = useState(false)
 	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
-	const memberId = (localStorage.getItem("userToken")) ? (JSON.parse(atob(token?.split(".")[1] || "")).id) : null
 
 	useEffect(() => {
 		if (token) {
@@ -53,17 +52,12 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 		}
 	}, [dispatch])
 
-	const memberCheck = (event: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>) => {
-		// event.preventDefault()
-		// navigate(`/member/${memberId}`)
-	}
-
 	return (
 		<nav className="navbar">
 			<div className="container-fluid justify-content-end">
 				{isLogin ? (
 					<>
-						<NavLink className="nav-link navLink" to={`/member`} onClick={memberCheck}>
+						<NavLink className="nav-link navLink" to={`/member`}>
 							<i className=" bi-person-circle btn-outline-warning" ></i>
 						</NavLink>
 						<span className='me-3'>{memberName} 您好</span>
