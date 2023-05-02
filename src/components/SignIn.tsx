@@ -2,7 +2,7 @@ import React, { useState, MutableRefObject, Dispatch, SetStateAction, useContext
 import { OrderContext } from '../store';
 import { useForm, useWatch } from "react-hook-form"
 import { authFetch } from '../utilities';
-import { Loading } from './';
+import { Loading, ErrorMsg } from './';
 import { CatchErrorMessage } from '../interface/member';
 
 interface LoginPropsType {
@@ -18,6 +18,7 @@ export interface SignInType {
 
 export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 	const [state, dispatch] = useContext(OrderContext);
+	const [errMsg, setErrMsg] = useState<string>()
 	const [loading, setloading] = useState(false)
 	const { register, handleSubmit, control, getValues, setError, formState: { errors } } = useForm<SignInType>();
 	const watchForm = useWatch({ control });
@@ -30,7 +31,6 @@ export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 					email: data.useremail,
 					password: data.password
 				})
-				console.log(' response=> ', response)
 				const userToken = response.data.data.token
 				const userId = response.data.data.signinRes._id
 				const userName = response.data.data.signinRes.nickName
@@ -51,6 +51,11 @@ export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 			} catch (error) {
 				setloading(false)
 				const CatchErrorMessage = error as CatchErrorMessage
+				if (CatchErrorMessage.code === "ERR_NETWORK") {
+					setErrMsg('無法連線至伺服器，請聯絡伺服器管理員或是檢查您的網路')
+				}
+
+				console.log('CatchErrorMessage.code', CatchErrorMessage.code)
 				if (CatchErrorMessage.response.status === 404) {
 					const errorMessage = CatchErrorMessage.response.data?.message;
 					if (errorMessage.includes('帳號不存在')) {
@@ -66,6 +71,8 @@ export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 						});
 					}
 				}
+
+
 			}
 		}())
 	}
@@ -116,8 +123,8 @@ export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 					<button type="submit" className="button">登入</button >
 				</form>
 				<div className="help-text">
-					{/* <p><a href="#">忘記密碼</a></p> */}
 				</div>
+				<ErrorMsg>{errMsg}</ErrorMsg>
 			</div>
 		</>
 	);

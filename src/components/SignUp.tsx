@@ -3,7 +3,7 @@ import { OrderContext } from '../store'
 import { useForm, useWatch } from "react-hook-form"
 import { authFetch } from '../utilities';
 import { SignInType } from './';
-import { Loading } from './';
+import { Loading, ErrorMsg } from './';
 import { CatchErrorMessage } from '../interface/member';
 
 interface SignUpPropsType {
@@ -17,11 +17,14 @@ interface SingUpType extends SignInType {
 
 export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 	const [state, dispatch] = useContext(OrderContext);
+	const [errMsg, setErrMsg] = useState<string>()
 	const [loading, setloading] = useState(false)
 	const [emailAvailable, setEmailAvailable] = useState(null);
 	const { register, handleSubmit, getValues, control, setError, formState: { errors } } = useForm<SingUpType>();
 	const watchForm = useWatch({ control });
 
+
+	/*******************即時偵測email是否重覆*****************/
 	useEffect(() => {
 		if (getValues().useremail !== "") {
 			const timer = setTimeout(() => {
@@ -48,6 +51,7 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 		}
 	}, [watchForm]);
 
+	/***********************表單寄送**************************/
 	const signUpForm = (data: SingUpType) => {
 		(async function () {
 			setloading(true)
@@ -74,7 +78,11 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 				setloading(false)
 				setIsLogin(true)
 			} catch (error) {
-				console.log('error', error);
+				setloading(false)
+				const CatchErrorMessage = error as CatchErrorMessage
+				if (CatchErrorMessage.code === "ERR_NETWORK") {
+					setErrMsg('無法連線至伺服器，請聯絡伺服器管理員或是檢查您的網路')
+				}
 			}
 		}())
 	}
@@ -141,6 +149,10 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 								value: true,
 								message: '請輸入您要設定的密碼',
 							},
+							minLength: {
+								value: 8,
+								message: '密碼不可少於 8 碼',
+							}
 						})}
 					/>
 					{errors.password && (
@@ -151,6 +163,7 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 				</form>
 				<div className="help-text">
 				</div>
+				<ErrorMsg>{errMsg}</ErrorMsg>
 			</div>
 		</>
 	);
