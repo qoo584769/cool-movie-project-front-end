@@ -80,6 +80,10 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 			} catch (error) {
 				setloading(false)
 				const CatchErrorMessage = error as CatchErrorMessage
+				setError("password", {
+					type: "serverError",
+					message: CatchErrorMessage.response.data?.message,
+				});
 				if (CatchErrorMessage.code === "ERR_NETWORK") {
 					setErrMsg('無法連線至伺服器，請聯絡伺服器管理員或是檢查您的網路')
 				}
@@ -149,9 +153,13 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 								value: true,
 								message: '請輸入您要設定的密碼',
 							},
+							pattern: {
+								value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
+								message: '請輸入英文+數字至少8碼的密碼',
+							},
 							minLength: {
 								value: 8,
-								message: '密碼不可少於 8 碼',
+								message: '請輸入英文+數字至少8碼的密碼',
 							}
 						})}
 					/>
