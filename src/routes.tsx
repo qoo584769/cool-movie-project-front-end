@@ -1,14 +1,16 @@
 import type { RouteObject } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {
-  Home, 
+  Home,
   Member,
-  Movie, 
-  Seats, 
-  Ticknumber,MemberInfo,
+  Movie,
+  Seats,
+  Ticknumber, MemberInfo,
   MemberAccount,
   MemberBonus,
-  MemberOrder
+  MemberOrder,
+  Benifet,
+  AboutUs
 } from "./pages"
 
 const routes: RouteObject[] = [
@@ -18,23 +20,23 @@ const routes: RouteObject[] = [
   },
   {
     path: "/member",
-    element: <Member/>,
+    element: <Member />,
     children: [
       {
         path: "",
-        element:<MemberInfo/>,
+        element: <MemberInfo />,
       },
       {
         path: "account",
-        element:<MemberAccount/>,
+        element: <MemberAccount />,
       },
       {
         path: "bonus",
-        element:<MemberBonus/>,
+        element: <MemberBonus />,
       },
       {
         path: "order",
-        element:<MemberOrder/>,
+        element: <MemberOrder />,
       },
       {
         path: "*",
@@ -49,6 +51,14 @@ const routes: RouteObject[] = [
   {
     path: "/ticknumber",
     element: <Ticknumber />,
+  },
+  {
+    path: "/benifet",
+    element: <Benifet />,
+  },
+  {
+    path: "/aboutus",
+    element: <AboutUs />,
   },
   {
     path: "/chooseSeates/:tickNumber",

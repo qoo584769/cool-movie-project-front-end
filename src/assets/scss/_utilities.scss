@@ -5,10 +5,21 @@ body {
 	font-size: 1.1em;
 }
 
-
-ul li {
-	list-style: none;
+a:hover {
+	color: $primary;
 }
+
+ul {
+	li {
+		list-style: none;
+	}
+
+	a {
+		color: #CFCFCF;
+	}
+}
+
+
 
 .invalid-feedback {
 	color: $invalid;
