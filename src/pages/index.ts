@@ -7,3 +7,5 @@ export * from "./MemberInfo";
 export * from "./MemberAccount";
 export * from "./MemberBonus";
 export * from "./MemberOrder";
+export * from "./Benifet";
+export * from "./AboutUs";

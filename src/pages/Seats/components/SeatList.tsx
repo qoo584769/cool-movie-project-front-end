@@ -10,11 +10,11 @@ interface SeatStatusType {
 const Li = styled.li<SeatStatusType>`
     background-color: ${(props) => {
 		if (!props.seatStatus) {
-			return "#fcc"
+			return "rgb(72, 0, 0);"
 		} else if (props.setRef) {
-			return "#cfc"
+			return "#E7C673"
 		} else {
-			return "#eee"
+			return "rgba(88, 85, 85, 0.21);"
 		}
 	}}
 `

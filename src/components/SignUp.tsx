@@ -65,6 +65,7 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 				const userId = response.data.data.createRes._id
 				const userName = response.data.data.createRes.nickName
 				localStorage.setItem('userToken', userToken)
+				document.cookie = "remember_me=true; SameSite=None; Secure";
 				dispatch({
 					type: "ADD_MEMBER_DATA",
 					payload: {
@@ -73,6 +74,7 @@ export const SignUp: React.FC<SignUpPropsType> = ({ myModal, setIsLogin }) => {
 						status: "member"
 					}
 				})
+
 				myModal.current?.hide();
 				document.querySelector(".modal-backdrop")?.remove();
 				setloading(false)

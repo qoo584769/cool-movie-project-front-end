@@ -2,6 +2,7 @@ import React, { MutableRefObject, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { SeatList } from './components/SeatList';
 import axios from 'axios';
+import { Loading } from '../../components';
 
 interface SeatsProps {
 }
@@ -17,11 +18,14 @@ const url = "https://9b71893b-9621-4845-b234-553e758f8f8a.mock.pstmn.io"
 export const Seats: React.FC<SeatsProps> = ({ }) => {
 	const tickNumber = Number(useParams().tickNumber)
 	const [seats, setSeats] = useState<SeatsType[]>([])
+	const [loading, setLoading] = useState(false)
 	useEffect(() => {
 		(async function () {
+			setLoading(true)
 			try {
 				let response = await axios.get(`${url}/seats`)
 				setSeats(response.data.data[0].seatStatus)
+				setLoading(false)
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -50,6 +54,7 @@ export const Seats: React.FC<SeatsProps> = ({ }) => {
 	console.log('selectSeat => ', selectSeat)
 	return (
 		<>
+			<Loading isActive={loading} />
 			<p>你已選擇了<span>{selectSeat.length}</span>位子</p>
 			<p>選擇座位為<span>{`${selectSeat}`}</span></p>
 			<ul className='theater'>
