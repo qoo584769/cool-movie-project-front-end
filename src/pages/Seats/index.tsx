@@ -24,7 +24,7 @@ export const Seats: React.FC<SeatsProps> = ({ }) => {
 			setLoading(true)
 			try {
 				let response = await axios.get(`${url}/seats`)
-				setSeats(response.data.data[0].seatStatus)
+				setSeats(response.data.seats[0].seatStatus)
 				setLoading(false)
 			} catch (error) {
 				console.log('error', error);
