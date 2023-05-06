@@ -56,9 +56,6 @@ export const Member: React.FC = () => {
                   backgroundImage: `url(${member.profilePic})`,
                 }}
               ></div>
-              <div className="member-sidebar-user-nickname text-center">
-                jason
-              </div>
               <hr className="my-2" />
               <div className="member-sidebar-user-name">
                 <p className="text-muted">會員</p>
