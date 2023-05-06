@@ -1,0 +1,25 @@
+.memberInfo {
+
+    &-avatar {
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+        cursor: pointer;
+        &-edit {
+            content: "";
+            height: 30px;
+            width: 30px;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgb(81, 81, 81);
+        }
+    }
+
+}

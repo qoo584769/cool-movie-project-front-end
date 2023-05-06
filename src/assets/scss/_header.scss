@@ -1,0 +1,53 @@
+.headerContainer {
+	@media screen and (max-width: 768px) {
+		padding-right: 0px;
+	}
+}
+
+.logo {
+	cursor: pointer;
+	width: 14%;
+
+	img {
+		width: 100%;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 32%;
+	}
+}
+
+.menuWrap {
+	display: flex;
+	padding: 0px;
+	margin: 0px;
+
+	li {
+		padding: 0px 5px;
+	}
+
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+}
+
+.loginNav {
+	display: flex;
+	align-items: center;
+
+	.navLink {
+		.bi-person-circle {
+			font-size: 1.3rem;
+
+			@media screen and (max-width: 768px) {
+				font-size: 1.2rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		span {
+			font-size: .9rem;
+		}
+	}
+}

@@ -1,10 +1,11 @@
 import React, { useReducer } from 'react';
-import { Route,Routes,useRoutes } from 'react-router-dom';
-import { OrderContext, OrderInitialState, OrderReducer } from './stroe';
+import { Route, Routes, useRoutes } from 'react-router-dom';
+import { OrderContext, OrderInitialState, OrderReducer } from './store';
 import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
 import './assets/scss/all.scss';
 import routes from './routes';
+
 // import { GlobalStyle } from './assets/GlobalStyle';
 
 
@@ -15,8 +16,8 @@ function App() {
   return (
     <OrderContext.Provider value={reducer}>
       <ThemeProvider theme={{}}>
-        <Header/>
-          {routing}
+        <Header />
+        {routing}
       </ThemeProvider>
     </OrderContext.Provider>
   );

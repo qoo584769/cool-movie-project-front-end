@@ -1,7 +1,7 @@
-import styled, { keyframes,DefaultTheme, ThemedStyledProps } from 'styled-components';
+import styled, { keyframes, DefaultTheme, ThemedStyledProps } from 'styled-components';
 
 interface LoadingType {
-	isActive:boolean
+	isActive: boolean
 }
 
 type PropsType = ThemedStyledProps<LoadingType, DefaultTheme>;
@@ -17,16 +17,15 @@ const rotation = keyframes`
 `;
 
 export const Loading = styled.div<LoadingType>`
-
 	position: fixed;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	top: 0;
-	background-color: rgba(255, 255, 255, 0.25);
-	backdrop-filter: blur(5px);
+	background-color: rgba(255, 255, 255, 0);
+	backdrop-filter: blur(2px);
 	z-index: 9999;
-	display: ${(props: PropsType)=>props.isActive? "flex":"none"};
+	display: ${(props: PropsType) => props.isActive ? "flex" : "none"};
 	justify-content: center;
 	align-items: center;
 	:after {
@@ -34,7 +33,7 @@ export const Loading = styled.div<LoadingType>`
 		display: block;
 		height: 55px;
 		width: 55px;
-		border: 5px solid #e77df0b3;
+		border: 5px solid #E7C673;
 		border-radius: 50%;
 		border-top: none;
 		border-right: none;
