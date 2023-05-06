@@ -24,3 +24,8 @@ export interface CatchErrorMessage {
         }
     };
 }
+
+export interface I_ChangePassword{
+    password: string;
+    confirmPassword: string;
+}
