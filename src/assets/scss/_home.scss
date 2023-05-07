@@ -1,3 +1,550 @@
-.card{
-    // color: #f00;
+.homeMovieCard {
+    position: relative;
+    background-color: rgba(57, 58, 58, 0.2);
+    cursor: pointer;
+
+    &-showing:hover {
+        border: 1px solid $primary;
+    }
+
+
+    &-showing:hover &-order {
+        color: #393A3A;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+        position: absolute;
+        display: block;
+    }
+
+    &-showing:hover &-order~* {
+        opacity: 0.8;
+    }
+
+    &-order {
+        display: none;
+        background-color: $primary;
+        width: 128px;
+        height: 48px;
+        border: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+
+    &-img {
+        position: relative;
+
+        &::before {
+            background-color: rgba(15, 15, 15, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            right: 10px;
+            bottom: 10px;
+        }
+    }
+
+    .general &-img::before {
+        content: '普';
+        color: #97F08F;
+        border: 1px solid #97F08F;
+    }
+
+    .parental-guidance &-img::before {
+        content: '保';
+        color: #035fd0;
+        border: 1px solid #035fd0;
+    }
+
+    .parental-strongly &-img::before {
+        content: '輔';
+        color: #FFB286;
+        border: 1px solid #FFB286;
+    }
+
+    .restricted &-img::before {
+        content: '限';
+        color: #b41212;
+        border: 1px solid #b41212;
+    }
+
+
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 438px;
+    }
+
+    &-title {
+        font-size: 28px;
+        margin-bottom: 46px;
+    }
+
+    &-content {
+        padding: 16px;
+    }
+
+    &-time {
+        color: #CFCFCF;
+        margin: 0;
+    }
+
+
+    @media screen and (max-width: 768px) {
+        &-order {
+            font-size: 16px;
+        }
+
+
+        &-img {
+            position: relative;
+
+            &::before {
+                font-size: 16px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        img {
+            object-fit: cover;
+            height: 258px;
+        }
+
+        &-title {
+            font-size: 20px;
+            margin-bottom: 32px;
+        }
+
+        &-content {
+            padding: 12px;
+        }
+
+        &-time {
+            font-size: 16px;
+        }
+    }
+
+}
+
+.homeKv {
+    position: relative;
+
+    &-swiper {
+        position: relative;
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        min-height: 640px;
+        object-fit: cover;
+    }
+
+    @media screen and (max-width: 375px) {
+        .swiper-slide img {
+            min-height: 480px;
+        }
+    }
+}
+
+.homeOrderForm {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+
+    form {
+        width: 100%;
+        max-width: 924px;
+        background: rgba(15, 15, 15, 0.8);
+        padding: 24px;
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    select {
+        background: transparent;
+        color: #fafafa;
+        width: 100%;
+        max-width: 276px;
+        padding: 8px 16px 8px 24px;
+        position: relative;
+        border: $primary 1px solid;
+        border-radius: 5px;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        margin-right: 24px;
+        background-position: right 0.5em top 50%, 0 0;
+        background-size: 16px;
+        background-repeat: no-repeat, repeat;
+        cursor: pointer;
+    }
+
+
+    button[type="submit"] {
+        min-width: 128px;
+        height: 48px;
+        border: none;
+        background-color: $primary;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        bottom: 10px;
+
+        form {
+            font-size: 16px;
+            max-width: 320px;
+            padding: 12px;
+        }
+
+        select {
+            padding-left: 12px;
+            max-width: 100%;
+            margin-right: 0;
+            margin-bottom: 12px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+
+    }
+}
+
+.homeShowing {
+    margin-top: 87px;
+
+    .swiper-slide {
+        width: 326px;
+    }
+
+    &+& {
+        margin-top: 164px;
+    }
+
+    hr {
+        margin-bottom: 40px;
+        margin-top: 47px;
+        height: 2px;
+        background: linear-gradient(90deg, #8D7129 0.62%, #E7C673 23.69%, #DDD2AC 51.62%, #E7C673 81.1%, #8D7129 99.93%);
+    }
+
+    .homeShowing-title {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 32px;
+        color: #fff;
+
+        span {
+            font-size: 28px;
+            color: $primary-dark;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .swiper-slide {
+            width: 180px;
+        }
+
+        margin-top: 76px;
+
+        &+& {
+            margin-top: 66px;
+        }
+
+        hr {
+            margin: 24px 0;
+        }
+
+        .homeShowing-title {
+            font-size: 24px;
+
+            span {
+                font-size: 20px;
+            }
+        }
+
+    }
+}
+
+.homeVideo {
+    margin-top: 160px;
+
+    .swiper-pagination {
+        margin: 32px 0px;
+        position: initial !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    &-pagination-bullet {
+        width: 32px;
+        height: 4px;
+        background-color: #393A3A;
+        cursor: pointer;
+
+        &-active {
+            background-color: $primary;
+        }
+    }
+
+    &-pagination-bullet+&-pagination-bullet {
+        margin-left: 10px;
+    }
+
+    &-img {
+        width: 100%;
+        min-width: 360px;
+        max-width: 712px;
+        min-height: 400px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    &-desc {
+        padding: 40px;
+
+        h3 {
+            font-size: 32px;
+            margin-bottom: 32px;
+            color: $primary;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 48px;
+        }
+    }
+
+    &-buttons {
+        button {
+            font-size: 20px;
+            line-height: 48px;
+            height: 48px;
+            width: 50%;
+            border: 1px solid $primary;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+
+        &-movie {
+            background-color: transparent;
+            color: $primary;
+        }
+
+        &-order {
+            background-color: $primary;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top: 64px;
+
+        &-img {
+            min-height: 210px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        &-desc {
+            padding: 24px 0;
+
+            h3 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            p {
+                font-size: 16px;
+                margin-bottom: 32px;
+            }
+        }
+
+        &-buttons {
+            button {
+                font-size: 16px;
+                line-height: 44px;
+                height: 44px;
+            }
+        }
+    }
+}
+
+.homeDiscount {
+    margin-top: 92px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+
+    &-desc {
+        background-size: 0;
+        margin-right: 24px;
+
+        h2 {
+            color: $primary;
+            margin-bottom: 32px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+    }
+
+    &-img {
+        width: 100%;
+        min-width: 712px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        margin-top: 40px;
+        height: auto;
+        background-size: 0;
+
+        .container {
+            padding: 0;
+        }
+
+        &-desc {
+            background-size: cover;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            order: 1;
+            max-width: 100%;
+            margin-right: 0px;
+            min-height: 230px;
+
+            h2 {
+                color: $primary;
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+        }
+
+        &-img {
+            min-width: auto;
+
+        }
+    }
+}
+
+.homeInvite {
+    margin-top: 160px;
+    margin-bottom: 80px;
+    padding: 80px;
+    border: 1px solid $primary;
+
+    &-title {
+        text-align: center;
+        color: $primary;
+        font-weight: 600;
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
+
+    &-card {
+        margin-bottom: 0;
+        text-align: center;
+        padding-left: 0;
+
+        li {
+            max-width: 33.3%;
+        }
+
+        &-img {
+            width: 112px;
+            height: 112px;
+            overflow: hidden;
+            background-color: #393A3A;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        &-title {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        &-subtitle {
+            font-size: 20px;
+            margin-bottom: 0px;
+            color: #9E9FA2;
+        }
+    }
+
+    @media screen and (max-width: 1280px) {
+        margin-top: 80px;
+        margin-bottom: 48px;
+        padding: 28px 14px;
+
+        &-title {
+            font-size: 24px;
+            margin-bottom: 32px;
+        }
+
+        &-card {
+
+            &-img {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 12px;
+                background-size: 33px;
+            }
+
+
+            &-title {
+                font-size: 20px;
+            }
+
+            &-subtitle {
+                font-size: 16px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        &-card {
+            li {
+                max-width: 100%;
+
+                +li {
+                    margin-top: 32px;
+                }
+            }
+        }
+    }
 }

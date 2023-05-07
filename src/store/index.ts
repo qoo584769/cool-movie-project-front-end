@@ -4,7 +4,7 @@ import { OrderFormType } from "../pages/Home/components/HomeOrderForm";
 // 定義我們的狀態型別
 export interface OrderType extends OrderFormType {
   memberId: string | null
-  mamberName: string,
+  memberName: string,
   movieIsOnId: string
   movie_time: string,
   quantity: number,
@@ -30,7 +30,7 @@ export interface OrderAction {
 export const OrderInitialState: OrderState = {
   orderList: {
     memberId: null,
-    mamberName: "",
+    memberName: "",
     movieIsOnId: "",
     movie_name: "",
     movie_date: "",
@@ -48,8 +48,8 @@ export const OrderContext = createContext<OrderContextType>([OrderInitialState, 
 
 export function OrderReducer(state: OrderState, action: OrderAction) {
   // const orderList = [...state.orderList]
-  console.log('action.payload', action.type)
-  console.log('state', state)
+  // console.log('action.payload', action.type)
+  // console.log('state', state)
 
   switch (action.type) {
     case 'CLEAR_ORDER':

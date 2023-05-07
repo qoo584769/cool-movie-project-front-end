@@ -1,14 +1,16 @@
 import type { RouteObject } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import {
-  Home, 
+  Home,
   Member,
-  Movie, 
-  Seats, 
-  Ticknumber,MemberInfo,
+  Movie,
+  Seats,
+  Ticknumber, MemberInfo,
   MemberAccount,
   MemberBonus,
-  MemberOrder
+  MemberOrder,
+  Benifet,
+  AboutUs
 } from "./pages"
 
 const routes: RouteObject[] = [
@@ -17,28 +19,28 @@ const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: "/member/*",
-    element: <Member/>,
+    path: "/member",
+    element: <Member />,
     children: [
       {
         path: "",
+        element: <MemberInfo />,
+      },
+      {
+        path: "account",
+        element: <MemberAccount />,
+      },
+      {
+        path: "bonus",
+        element: <MemberBonus />,
+      },
+      {
+        path: "order",
+        element: <MemberOrder />,
+      },
+      {
+        path: "*",
         element: <Navigate to="/" />,
-      },
-      {
-        path: ":id",
-        element:<MemberInfo/>,
-      },
-      {
-        path: ":id/account",
-        element:<MemberAccount/>,
-      },
-      {
-        path: ":id/bonus",
-        element:<MemberBonus/>,
-      },
-      {
-        path: ":id/order",
-        element:<MemberOrder/>,
       },
     ]
   },
@@ -51,8 +53,20 @@ const routes: RouteObject[] = [
     element: <Ticknumber />,
   },
   {
+    path: "/benifet",
+    element: <Benifet />,
+  },
+  {
+    path: "/aboutus",
+    element: <AboutUs />,
+  },
+  {
     path: "/chooseSeates/:tickNumber",
     element: <Seats />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
 

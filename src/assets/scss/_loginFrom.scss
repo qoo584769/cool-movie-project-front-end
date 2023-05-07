@@ -1,180 +1,196 @@
-.modelWrap{
-    background-color:unset;
-    border:none
-
+.modelWrap {
+	background-color: unset;
+	border: none
 }
 
 a {
-    color: #666;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #4FDA8C;
+	color: #666;
+	text-decoration: none;
 }
 
 .form-wrap {
-    background-color: $transparent-background;
-    width: 85%;
-    margin: 0 auto;
-    box-shadow: 0px 1px 8px #BEBEBE;
-    position: relative;
-    
-    .bi.bi-x{
-        position: absolute;
-        font-size: 2rem;
-        top: -29px;
-        right: -29px;
-        cursor: pointer;
-    }
+	background-color: $transparent-background;
+	width: 85%;
+	margin: 0 auto;
+	box-shadow: 0px 1px 8px #BEBEBE;
+	position: relative;
+
+	.bi.bi-x {
+		position: absolute;
+		font-size: 2rem;
+		top: -29px;
+		right: -29px;
+		cursor: pointer;
+	}
 }
 
 
 
 .form-wrap .tabs {
-    overflow: hidden;
+	// overflow: hidden;
 }
 
 .form-wrap .tabs h6 {
-    float: left;
-    width: 50%;
-    font-size: 0.9rem;
-    // height: 10022px;
+	float: left;
+	width: 50%;
+	font-size: 0.9rem;
+	// height: 10022px;
 }
 
-.tab-common{
-    display: none;
+.tab-common {
+	display: none;
 }
 
 .login-tab button {
-    padding: 1em 0;
-    text-align: center;
-    font-weight: 600;
-    background-color: #fff;
-    display: block;
-    color: #fff;
-    border: unset;
-    width: 100%;
-    border-radius: 6px 0 0 0;
+	padding: 1em 0;
+	text-align: center;
+	font-weight: 600;
+	background-color: #fff;
+	display: block;
+	color: #fff;
+	border: unset;
+	width: 100%;
+	border-radius: 6px 0 0 0;
 }
 
 .signup-tab button {
-    padding: 1em 0;
-    text-align: center;
-    font-weight: 600;
-    background-color: #e6e7e8;
-    display: block;
-    color: #fff;
-    border: unset;
-    width: 100%;
-    border-radius: 0px 6px 0 0;
+	padding: 1em 0;
+	text-align: center;
+	font-weight: 600;
+	background-color: #e6e7e8;
+	display: block;
+	color: #fff;
+	border: unset;
+	width: 100%;
+	border-radius: 0px 6px 0 0;
 }
 
 
 .form-wrap .tabs-content {
-    padding: 1.5em;
+	padding: 1.5em;
 }
 
 .form-wrap .tabs-content #login-tab-content {
-    .remember_me{
-        font-size: .9rem;
-    }
+	.remember_me {
+		font-size: .9rem;
+	}
 }
 
 .form-wrap .tabs-content #signup-tab-content {
-    // display: none;
+	// display: none;
 }
 
 .form-wrap form .input {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    color: inherit;
-    font-family: inherit;
-    padding: 5px 8px;
-    border: 1px solid #CFCFCF;
-    outline: 0;
-    display: inline-block;
-    margin: 0 0 .8em 0;
-    padding-right: 2em;
-    width: 100%;
-    font-size: .8rem;
-    border-radius: 3px;
-    background: rgba(55, 55, 55, 0.8);
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	padding: 5px 8px;
+	border: 1px solid #CFCFCF;
+	outline: 0;
+	display: inline-block;
+	margin: 0 0 .8em 0;
+	padding-right: 2em;
+	width: 100%;
+	font-size: .8rem;
+	border-radius: 3px;
+	background: rgba(55, 55, 55, 0.8);
+
+	&.is-invalid {
+		margin: 0 0 0 0;
+		border: 1px solid $invalid;
+	}
+
+	&.is-valid {
+		margin: 0 0 0 0;
+	}
 }
 
 .form-wrap form .button {
-    width: 100%;
-    padding: 5px 8px;
-    background-color: #E7C67300;
-    border: none;
-    color: $primary;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    border: 1px solid $primary;
-    font-weight: 600;
+	width: 100%;
+	padding: 5px 8px;
+	background-color: #E7C67300;
+	border: none;
+	color: $primary;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	border-radius: 4px;
+	border: 1px solid $primary;
+	font-weight: 600;
+
+	&:disabled {
+		background-color: #80808085;
+		color: #999;
+		border: 1px solid gray;
+	}
+
+	&:disabled:hover {
+		background-color: #80808085;
+		color: #999;
+
+	}
 }
 
 .form-wrap form .button:hover {
-    background-color: $primary;
-    color: #fff;
+	background-color: $primary;
+	color: #fff;
 }
 
 .form-wrap form .checkbox {
-    visibility: hidden;
-    padding: 20px;
-    margin: .5em 0 1.5em;
+	visibility: hidden;
+	padding: 20px;
+	margin: .5em 0 1.5em;
 }
 
 .form-wrap form .checkbox:checked+label:after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
 }
 
 .form-wrap form label[for] {
-    position: relative;
-    padding-left: 20px;
-    cursor: pointer;
+	position: relative;
+	padding-left: 20px;
+	cursor: pointer;
 }
 
 .form-wrap form label[for]:before {
-    content: '';
-    position: absolute;
-    border: 1px solid #CFCFCF;
-    width: 17px;
-    height: 17px;
-    top: 0px;
-    left: -14px;
+	content: '';
+	position: absolute;
+	border: 1px solid #CFCFCF;
+	width: 17px;
+	height: 17px;
+	top: 0px;
+	left: -14px;
 }
 
 .form-wrap form label[for]:after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    opacity: 0;
-    content: '';
-    position: absolute;
-    width: 9px;
-    height: 5px;
-    background-color: transparent;
-    top: 4px;
-    left: -10px;
-    border: 3px solid #28A55F;
-    border-top: none;
-    border-right: none;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background-color: transparent;
+	top: 4px;
+	left: -10px;
+	border: 3px solid #28A55F;
+	border-top: none;
+	border-right: none;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .form-wrap .help-text {
-    margin-top: .6em;
+	margin-top: .6em;
 }
 
 .form-wrap .help-text p {
-    text-align: center;
-    font-size: 14px;
+	text-align: center;
+	font-size: 14px;
 }
