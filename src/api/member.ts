@@ -1,5 +1,5 @@
 import { authFetch } from '../utilities/authFetch'
-import { I_MEMBER} from '../interface/member'
+import { I_MEMBER, I_ChangePassword} from '../interface/member'
 
 export const getMember = async () => {
     return await authFetch.get(`/api/member/getUser`);
@@ -19,3 +19,12 @@ export const updateMember = async ({
     });
 }
 
+export const changePassword = async ({
+    password,
+    confirmPassword
+}: I_ChangePassword) => {
+    return await authFetch.post(`/api/member/changePassword`, {
+        password,
+        confirmPassword
+    });
+}
