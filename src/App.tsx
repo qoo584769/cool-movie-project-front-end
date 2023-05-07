@@ -2,7 +2,8 @@ import React, { useReducer } from 'react';
 import { Route, Routes, useRoutes } from 'react-router-dom';
 import { OrderContext, OrderInitialState, OrderReducer } from './store';
 import { ThemeProvider } from 'styled-components';
-import { Header } from './components';
+import { Header,Footer } from './components';
+
 import './assets/scss/all.scss';
 import routes from './routes';
 
@@ -18,6 +19,7 @@ function App() {
       <ThemeProvider theme={{}}>
         <Header />
         {routing}
+        <Footer/>
       </ThemeProvider>
     </OrderContext.Provider>
   );
