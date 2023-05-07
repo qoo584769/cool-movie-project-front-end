@@ -9,12 +9,13 @@ interface SeatStatusType {
 
 const Li = styled.li<SeatStatusType>`
     background-color: ${(props) => {
-		if (!props.seatStatus) {
+		console.log(' props=> ', props)
+		if (props.seatStatus) {
 			return "rgb(72, 0, 0);"
-		} else if (props.setRef) {
-			return "#E7C673"
-		} else {
+		} else if (!props.setRef) {
 			return "rgba(88, 85, 85, 0.21);"
+		} else {
+			return "#E7C673"
 		}
 	}}
 `
@@ -29,9 +30,10 @@ interface SeatListProps extends SeatsType {
 
 export const SeatList: React.FC<SeatListProps> = ({ seat_id, is_booked, onClick }) => {
 	const selectRef = useRef(false)
+	/* console.log(' is_booked=> ', is_booked) */
 
 	const clickHandler = (event: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>) => {
-		if (is_booked) {
+		if (is_booked === false) {
 			onClick(seat_id, selectRef)
 		} else {
 			alert("該座位已被劃位")
