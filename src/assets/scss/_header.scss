@@ -1,4 +1,7 @@
 .headerContainer {
+	background-color: $primary-background;
+	z-index: 9999;
+
 	@media screen and (max-width: 768px) {
 		padding-right: 0px;
 	}
@@ -29,6 +32,10 @@
 	@media screen and (max-width: 768px) {
 		display: none;
 	}
+
+	.active {
+		color: $primary;
+	}
 }
 
 .loginNav {
@@ -46,8 +53,52 @@
 	}
 
 	@media screen and (max-width: 768px) {
-		span {
-			font-size: .9rem;
+		.memberName {
+			display: none;
+			// 	font-size: .9rem;
 		}
+	}
+}
+
+.navbar-hamburger {
+	width: 30px;
+
+	img {
+		width: 100%;
+	}
+}
+
+.hamburger-menu {
+	img {
+		width: 100%;
+	}
+
+	background-color: $primary-background;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+}
+
+.hamburger-menu-logo {
+	max-width: 162px;
+}
+
+.hamburger-menu-close {
+	max-width: 20px;
+}
+
+.hamburger-menu-link {
+	ul li {
+		padding-left: 0;
+		margin-left: 0;
+	}
+
+	margin-top: 32px;
+
+	& p:hover,
+	& p.active {
+		color: $primary;
 	}
 }
