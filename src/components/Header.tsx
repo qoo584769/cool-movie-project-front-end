@@ -4,9 +4,9 @@ import { OrderContext } from "../store";
 import { Login, Logout, HamburgerMenu } from "./";
 import { authFetch, logoutClear, getCookie } from "../utilities";
 
-interface HeaderProps {}
+interface HeaderProps { }
 
-export const Header: React.FC<HeaderProps> = ({}) => {
+export const Header: React.FC<HeaderProps> = ({ }) => {
   const [state, dispatch] = useContext(OrderContext);
   const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                 <NavLink className="nav-link navLink" to={`/member`}>
                   <i className=" bi-person-circle btn-outline-warning"></i>
                 </NavLink>
-                <span className="me-2">{memberName} 您好</span>
+                <span className="me-2 memberName">{memberName} 您好</span>
                 <Logout isLogin={isLogin} setIsLogin={setIsLogin} />
               </div>
             ) : (
