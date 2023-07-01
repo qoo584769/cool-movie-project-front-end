@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/qoo584769/cool-movie-project-front-end/build/static/css/main.e8e8aaf0.css",
-    "main.js": "/qoo584769/cool-movie-project-front-end/build/static/js/main.24826702.js",
-    "index.html": "/qoo584769/cool-movie-project-front-end/build/index.html",
-    "main.e8e8aaf0.css.map": "/qoo584769/cool-movie-project-front-end/build/static/css/main.e8e8aaf0.css.map",
-    "main.24826702.js.map": "/qoo584769/cool-movie-project-front-end/build/static/js/main.24826702.js.map"
+    "main.css": "/cool-movie-project-front-end/static/css/main.e8e8aaf0.css",
+    "main.js": "/cool-movie-project-front-end/static/js/main.86aaf218.js",
+    "index.html": "/cool-movie-project-front-end/index.html",
+    "main.e8e8aaf0.css.map": "/cool-movie-project-front-end/static/css/main.e8e8aaf0.css.map",
+    "main.86aaf218.js.map": "/cool-movie-project-front-end/static/js/main.86aaf218.js.map"
   },
   "entrypoints": [
     "static/css/main.e8e8aaf0.css",
-    "static/js/main.24826702.js"
+    "static/js/main.86aaf218.js"
   ]
 }
