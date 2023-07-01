@@ -5,10 +5,10 @@ import { MovieContext } from '../../../store/movie'
 import { Loading } from '../../../components';
 
 // 首頁輪播大圖(目前寫死)
-import carouselImg from "/images/carouselImg.png"
+import carouselImg from "./public/images/carouselImg.png"
 // 輪播圖左右箭頭
-import LeftArrow from "/images/leftArrow.png"
-import RightArrow from "/images/rightArrow.png"
+import LeftArrow from "./public/images/leftArrow.png"
+import RightArrow from "./public/images/rightArrow.png"
 
 const MovieBooking: React.FC = () => {
   const url = 'https://crazymovie.onrender.com'
@@ -97,7 +97,7 @@ const MovieBooking: React.FC = () => {
                 ))}
               </select>
               <div className=''>
-                <img src="/images/homePage/selectMovie.svg" alt="" className='d-block'/>
+                <img src="./public/images/homePage/selectMovie.svg" alt="" className='d-block'/>
               </div>
             </label>
           </div>
@@ -119,7 +119,7 @@ const MovieBooking: React.FC = () => {
                   ))}
                 </select>
                 <div className=''>
-                  <img src="/images/homePage/selectDate.svg" alt="" className='d-block'/>
+                  <img src="./public/images/homePage/selectDate.svg" alt="" className='d-block'/>
                 </div>
               </label>
             )
@@ -131,7 +131,7 @@ const MovieBooking: React.FC = () => {
                   <option value="">請先選擇影片</option>
                 </select>
                 <div className=''>
-                  <img src="/images/homePage/selectDate.svg" alt="" className='d-block'/>
+                  <img src="./public/images/homePage/selectDate.svg" alt="" className='d-block'/>
                 </div>
               </label>
             )
@@ -158,7 +158,7 @@ const MovieBooking: React.FC = () => {
                   }
                 </select>
                 <div className=''>
-                  <img src="/images/homePage/selectTime.svg" alt="" className='d-block'/>
+                  <img src="./public/images/homePage/selectTime.svg" alt="" className='d-block'/>
                 </div>
               </label>
             )
@@ -170,7 +170,7 @@ const MovieBooking: React.FC = () => {
                   <option value="">請先選擇日期</option>
                 </select>
                 <div className=''>
-                  <img src="/images/homePage/selectTime.svg" alt="" className='d-block'/>
+                  <img src="./public/images/homePage/selectTime.svg" alt="" className='d-block'/>
                 </div>
               </label>
             )
@@ -210,10 +210,10 @@ export const HomeCarousel: React.FC = () => {
       
       <div className="row justify-content-center">
         <div className="col-lg-12 col-md-6 position-relative">  
-          <img src="/images/homePage/carouselImg.png" className="d-block img-fluid"></img>
-            {/* <img src="/images/homePage/leftArrow.png" alt="LeftArrow" className="z-index position-absolute top-50 start-0 translate-middle-y"/> */}
+          <img src="./public/images/homePage/carouselImg.png" className="d-block img-fluid"></img>
+            {/* <img src="/./public/images/homePage/leftArrow.png" alt="LeftArrow" className="z-index position-absolute top-50 start-0 translate-middle-y"/> */}
             <span className="text-liner fz-40 z-index position-absolute top-50 start-50 translate-middle">奢華沉浸，非凡感官</span>
-            {/* <img src="/images/homePage/rightArrow.png" alt="RightArrow" className="z-index position-absolute top-50 end-0 translate-middle-y"/> */}
+            {/* <img src="/./public/images/homePage/rightArrow.png" alt="RightArrow" className="z-index position-absolute top-50 end-0 translate-middle-y"/> */}
         </div>
       </div>
         <MovieBooking ></MovieBooking>
