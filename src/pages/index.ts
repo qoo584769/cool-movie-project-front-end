@@ -1,6 +1,6 @@
 export * from "./Home";
 export * from "./Member";
-export * from "./Movie/Movie";
+export * from "./Movie/MovieDetail";
 export * from "./Seats";
 export * from "./Ticknumber";
 export * from "./MemberInfo";
@@ -9,3 +9,5 @@ export * from "./MemberBonus";
 export * from "./MemberOrder";
 export * from "./Benifet";
 export * from "./AboutUs";
+export * from "./Order";
+export * from "./NewebPay";

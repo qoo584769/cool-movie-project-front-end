@@ -3,14 +3,16 @@ import { Navigate } from "react-router-dom";
 import {
   Home,
   Member,
-  Movie,
+  MovieDetail,
   Seats,
   Ticknumber, MemberInfo,
   MemberAccount,
   MemberBonus,
   MemberOrder,
   Benifet,
-  AboutUs
+  AboutUs,
+  Order,
+  NewebPay
 } from "./pages"
 
 const routes: RouteObject[] = [
@@ -46,10 +48,10 @@ const routes: RouteObject[] = [
   },
   {
     path: "/movie/:id",
-    element: <Movie />,
+    element: <MovieDetail />,
   },
   {
-    path: "/ticknumber",
+    path: "/ticknumber/:id",
     element: <Ticknumber />,
   },
   {
@@ -61,8 +63,16 @@ const routes: RouteObject[] = [
     element: <AboutUs />,
   },
   {
-    path: "/chooseSeates/:tickNumber",
+    path: "/chooseSeates/:id/:tickNumber",
     element: <Seats />,
+  },
+  {
+    path: "/order/:id",
+    element: <Order />,
+  },
+  {
+    path: "/newebpayreturn",
+    element: <NewebPay />,
   },
   {
     path: "*",

@@ -1,0 +1,297 @@
+*{
+  list-style:none;  
+  padding:0;
+  margin:0;
+}
+
+.list-disc{
+  list-style-type:disc;
+}
+
+.t-color{
+  color:#cfcfcf;
+}
+
+.text-gold{
+  color:#E7C673;
+}
+
+.bd-gold{
+  border:2px solid #E7C673;
+}
+
+.bg-gold{
+  background:#E7C673;
+}
+
+.m-20{
+  margin:0 20px 0 20px !important;
+}
+
+.pb-80{
+  padding-bottom:80px  
+}
+
+.pt-160{
+  padding-top:160px;
+}
+
+.bg-main{
+  background:#0f0f0f;
+}
+
+.btn-login{
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  color:#E7C673;
+  border:2px solid #B5984D
+}
+
+.carousel-img{
+  max-width:1920px;
+  width:100%;
+  z-index:1;
+  display:block;
+  background-position: center center;
+  background-size: cover;
+}
+
+// .carousel-img2{
+//   background-image:url('../img/mainimg.png');
+//   background-position: center center;
+//   background-size: cover;
+// }
+.all-img{
+  background-position: center center;
+  background-size: cover;
+  max-width:1920px;
+  width:100%;
+}
+.z-index{
+  z-index:1;
+}
+.z-index-10{
+  z-index:10;
+}
+.carousel-h{
+  height:640px;
+}
+
+.text-liner{
+  background: linear-gradient(90deg, #8D7129 0.62%, #E7C673 23.69%, #DDD2AC 51.62%, #E7C673 81.1%, #8D7129 99.93%);
+  background-clip: text;
+   color: transparent;
+  background-size: cover;
+}
+
+.fz-40{
+  font-size:40px; 
+}
+
+.line-height{
+  line-height:640px
+}
+
+.online-arrow{
+  width:48px;
+  height:48px;
+}
+.online-text{
+  color:#fff !important
+}
+
+.border-gold{
+  border:2px solid linear-gradient(90deg, #8D7129 0.62%, #E7C673 23.69%, #DDD2AC 51.62%, #E7C673 81.1%, #8D7129 99.93%);
+}
+
+.bg-line{
+  background: linear-gradient(90deg, #8D7129 0.62%, #E7C673 23.69%, #DDD2AC 51.62%, #E7C673 81.1%, #8D7129 99.93%);
+  height:2px;
+  width:100%;
+  margin:0 0 40px 0;
+}
+
+.position-80{
+  /* transform:translate(0,-160px); */
+  margin:-253px 0 0 0;
+}
+/* ---------------------- */
+
+/* ---------*** */
+.checkbox-circle input[type="checkbox"] {
+  /* display: none; */
+  appearance: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: none;
+  /* position: absolute; */
+  -webkit-transition: all 0.2s, transform 0.3s ease-in-out;
+  transition: all 0.2s, transform 0.3s ease-in-out;
+  background: #CFCFCF;
+}
+/* .checkbox-circle input[type="checkbox"]:hover + label:hover {
+  color: rgb(23, 86, 228);
+} */
+.checkbox-circle input[type="checkbox"]:hover {
+  border: 1px solid #B5984D;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cfcfcf;
+  background: #B5984D;
+  box-shadow: 0 0 0 1px #B5984D;
+}
+.checkbox-circle input[type="checkbox"]:checked {
+  border-radius: 1em;
+  /* border: 2px solid #fff; */
+  width: 24px;
+  height: 24px;
+  background: #B5984D;
+  /* box-shadow: 0 0 0 1px #000; */
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+
+.checkbox-circle input[type="checkbox"]:disabled {
+  border-radius: 1em;
+  /* border: 2px solid #fff; */
+  width: 24px;
+  height: 24px;
+  background: #000;
+  border:#000;
+  cursor:default;
+  /* box-shadow: 0 0 0 1px #000; */
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+/* ----------------- */
+.checkbox-circl input[type="checkbox"] + label {
+  display: inline-block;
+  /* position: relative; */
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.checkbox-circl input[type="checkbox"]:hover + label:hover {
+  color: rgb(23, 86, 228);
+}
+.checkbox-circl input[type="checkbox"]:hover + label:before {
+  border: 1px solid #B5984D;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cfcfcf;
+  background: #B5984D;
+  box-shadow: 0 0 0 1px #B5984D;
+}
+.checkbox-circl input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  /* border: 1px solid #343a3f; */
+  border: none;
+  border-radius: 1em;
+  /* position: absolute; */
+  left: 0;
+  top: 0;
+  -webkit-transition: all 0.2s, transform 0.3s ease-in-out;
+  transition: all 0.2s, transform 0.3s ease-in-out;
+  background: #CFCFCF;
+}
+.checkbox-circl input[type="checkbox"]:checked + label:before {
+  border-radius: 1em;
+  /* border: 2px solid #fff; */
+  width: 24px;
+  height: 24px;
+  background: #B5984D;
+  /* box-shadow: 0 0 0 1px #000; */
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+
+.seat{
+  display:inline-block;
+  width:24px;
+  height:24px;
+  border-radius:50px;
+  border:none;
+}
+
+.taken:disabled{
+  background:#393A3A !important;
+}
+
+.available{
+  background:#CFCFCF;
+}
+
+// 首頁套票折扣區塊
+.bg-discount {
+  max-width:1920px;
+  width:100%;
+  background:linear-gradient(90deg, #393A3A 0%,#393A3A 100%,#393A3A 100%,#393A3A 0%)
+}
+
+@media (min-width: 992px) {
+   /* 在大螢幕上，讓背景固定不動 */
+   .bg-discount {
+     background-attachment: fixed;
+   }
+ }
+
+// 首頁call to action
+.cus-card-img {
+  max-width:120px;
+  width:100%;
+}
+
+@media (min-width: 992px) {
+   /* 在大螢幕上，讓背景固定不動 */
+   .cus-card-img {
+   }
+ }
+
+//  選擇票券數量的隱藏輸入框小箭頭
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+table{
+  border-collapse: collapse;
+  width: 100%; 	
+}
+
+// 首頁下拉式選單
+select{
+  appearance: none;
+  outline: none;
+  // border: 2px solid #B5984D;
+  border: none;
+}
+
+.bg-dark-80{
+  background: #0F0F0F;
+  opacity: 80%;
+}
+
+
+.m-40{
+  margin-top: -130px !important;
+}
+
+.z-index-100{
+  z-index: 100 !important;
+}
