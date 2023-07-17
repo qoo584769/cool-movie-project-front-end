@@ -1,11 +1,11 @@
 
-import block from "../../../assets/images/block.png"
-import customer from "../../../assets/images/customer.png"
+import block from "@/assets/images/block.png"
+import customer from "@/assets/images/customer.png"
 
 export const HomeDiscount = ()=>{
   return (    
     <div className="bg-discount">
-      <img src="../../../assets/images/block.png" alt="image" style={{ maxWidth: '100%' }} />
+      <img src="@/assets/images/block.png" alt="image" style={{ maxWidth: '100%' }} />
           <div className="container">
             <div className="row">
               <div className="col-12 col-md-6 d-flex flex-column justify-content-center pe-md-5">    
@@ -13,12 +13,12 @@ export const HomeDiscount = ()=>{
                 <div className="text-white">和另一半一起來全台最豪華影城看電影，享情侶套餐超划算！ 包括 2 張電影票、2 份私廚料理 套餐和調酒，原價 1230 元，現在只需 999 元。</div>
               </div>
               <div className="col-12 col-md-6 text-center">
-                <img src="../../../assets/images/customer.png" alt="image" style={{ maxWidth: '100%', margin:'-24px 0', display:'block' }} />
+                <img src="@/assets/images/customer.png" alt="image" style={{ maxWidth: '100%', margin:'-24px 0', display:'block' }} />
               </div>
             </div>
           </div>   
           
-        <img src="../../../assets/images/block.png" alt="image" style={{ maxWidth: '100%','zIndex':'-100' }} />
+        <img src="@/assets/images/block.png" alt="image" style={{ maxWidth: '100%','zIndex':'-100' }} />
         </div>
   )
 }

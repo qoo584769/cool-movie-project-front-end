@@ -7,7 +7,7 @@ import { HomeHotMovie } from './components/HomeHotMovie';
 import { HomeDiscount } from './components/HomeDiscount';
 import { HomeCallToAction } from './components/HomeCallToAction';
 import { Link } from 'react-router-dom';
-import { Loading } from '../../components';
+import { Loading } from '../../components/index';
 
 // const api = 'https://api.unsplash.com/search/photos/';
 // const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS
