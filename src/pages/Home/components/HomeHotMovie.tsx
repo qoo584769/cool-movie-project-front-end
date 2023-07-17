@@ -1,4 +1,4 @@
-import hotMovieImg from "/src/assets/images/hotMovieImg.png"
+import hotMovieImg from "/cool-movie-project-front-end/public/images/homePage/hotMovieImg.png"
 
 export const HomeHotMovie = () => {
   return (
@@ -6,7 +6,7 @@ export const HomeHotMovie = () => {
       <div className="container">
       <div className="row">
         <div className="col-6 col-md-6">
-          <img src="/src/assets/images/hotMovieImg.png" alt="image" style={{ maxWidth: '100%' }} />
+          <img src="/cool-movie-project-front-end/public/images/homePage/hotMovieImg.png" alt="image" style={{ maxWidth: '100%' }} />
         </div>
         <div className="col-6 col-md-6 d-flex flex-column justify-content-center ps-4">
           <div className='text-gold'>捍衛任務4</div>
