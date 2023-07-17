@@ -1,26 +1,26 @@
 import React from 'react';
-import cardImg1 from "@/assets/images/cardImg1.png"
-import cardImg2 from "@/assets/images/cardImg2.png"
-import cardImg3 from "@/assets/images/cardImg3.png"
+import cardImg1 from "src/assets/images/cardImg1.png"
+import cardImg2 from "src/assets/images/cardImg2.png"
+import cardImg3 from "src/assets/images/cardImg3.png"
 
 // 卡片資料
 const cards = [
     {
       id: "1",
-      imageSrc: `@/assets/images/cardImg1.png`,
+      imageSrc: `src/assets/images/cardImg1.png`,
       title: "分享連結",
       description: "分享專屬連結，送好友 2 張 77 折券"
     },
     {
        id: "2",
-       imageSrc: "@/assets/images/cardImg2.png",
+       imageSrc: "src/assets/images/cardImg2.png",
        title: "好友註冊",
        description:
          "好友完成註冊，會員即可獲得 2 張 77 折券和會員點數 200 點",
      },
      {
        id: "3",
-       imageSrc:"@/assets/images/cardImg3.png", 
+       imageSrc:"src/assets/images/cardImg3.png", 
        title: "獲得優惠",
        description:
          "好友 2 個月內購票 2 張以上， 即可獲得 77 折券一張",
