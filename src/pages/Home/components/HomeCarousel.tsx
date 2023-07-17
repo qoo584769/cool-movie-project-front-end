@@ -1,8 +1,8 @@
 import React, { useState,useContext ,useEffect,  ChangeEvent, FormEvent } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom"
 import axios from 'axios';
-import { MovieContext } from '../../../store/movie'
-import { Loading } from '../../../components';
+import { MovieContext } from 'src/store/movie'
+import { Loading } from 'src/components';
 
 // 首頁輪播大圖(目前寫死)
 import carouselImg from "/images/carouselImg.png"
