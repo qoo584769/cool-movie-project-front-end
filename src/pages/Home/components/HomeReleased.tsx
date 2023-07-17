@@ -39,7 +39,7 @@ export const HomeReleased = () => {
           <span className="d-block text-liner fs-2">NOW SHOWING</span>
         </div>
         <div className="col-lg-6 d-flex justify-content-end">
-          <img src={process.env.PUBLIC_URL + "/images/homePage/oArrowLeft.png"} alt="Logo" className="online-arrow me-4"/>
+          <img src={"/cool-movie-project-front-end/public/images/homePage/oArrowLeft.png"} alt="Logo" className="online-arrow me-4"/>
           <img src="/src/assets/images/oArrowRight.png" alt="Logo" className="online-arrow"/>
         </div>
       </div>
