@@ -4,8 +4,8 @@ import { MovieContext } from '../../../store/movie'
 import axios from 'axios';
 
 // 輪播圖左右箭頭
-import oArrowLeft from "/src/assets/imagesft.png"
-import oArrowRight from "/src/assets/imagesght.png"
+import oArrowLeft from "//src/assets/imagesft.png"
+import oArrowRight from "//src/assets/imagesght.png"
 
 export const HomeComimgMovie = () => {
 
@@ -36,8 +36,8 @@ export const HomeComimgMovie = () => {
           <span className="d-block text-liner fs-2">COMING SOON</span>
         </div>
         <div className="col-lg-6 d-flex justify-content-end">
-          <img src="src/assets/images/oArrowLeft.png" alt="Logo" className="online-arrow me-4"/>
-          <img src="src/assets/images/oArrowRight.png" alt="Logo" className="online-arrow"/>
+          <img src="/src/assets/images/oArrowLeft.png" alt="Logo" className="online-arrow me-4"/>
+          <img src="/src/assets/images/oArrowRight.png" alt="Logo" className="online-arrow"/>
         </div>
       </div>
       <div className="bg-line"></div>
