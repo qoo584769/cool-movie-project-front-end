@@ -125,8 +125,13 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     })
   }
   
-  const payBtn = (movieData:any)=>{
-    const data = {ItemDesc:movieData.movieId.name,date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`,position:seatSelectData,price:movieData.theaterId.price,time:event.time}
+  const payBtn = (movieData:any,time:any)=>{
+    const data = {
+      ItemDesc:movieData.movieId.name, 
+      date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`, position:seatSelectData,
+      price:movieData.theaterId.price, 
+      time
+    }
     // console.log(data)
     // console.log(movieData)
     const url = 'https://crazymovie.onrender.com'
@@ -195,7 +200,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
              </button>
            </div> */}
            <div className="col-12">
-        	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData)}>
+        	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData, time)}>
            	 前往訂位
            	</button>
            </div>
