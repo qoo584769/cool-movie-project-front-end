@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 interface PaymentInfoProps {
@@ -7,9 +7,10 @@ interface PaymentInfoProps {
 }
 const NewebPayInfo: React.FC<PaymentInfoProps> = ({ }) => {
   const {id}= useParams();
+  const { search } = useLocation();
   useEffect(() => {
-    console.log('付款返回',id)
-  }, [id]);
+    console.log('付款返回',search)
+  }, []);
 
   return (
     <>
