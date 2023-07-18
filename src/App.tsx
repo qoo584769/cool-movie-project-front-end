@@ -11,7 +11,6 @@ import { MovieContext } from './store/movie';
 // import { GlobalStyle } from './assets/GlobalStyle';
 const GetMovieData= ({children}:any) => {
   const url = process.env.REACT_APP_REMOTE_RENDER_URL
-  console.log(url);
   
   const [data, setData] = useState([]);
   useEffect(() => {

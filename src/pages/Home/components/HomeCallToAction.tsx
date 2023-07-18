@@ -2,12 +2,12 @@ import React from 'react';
 import cardImg1 from "/cool-movie-project-front-end/public/images/homePage/cardImg1.png"
 import cardImg2 from "/cool-movie-project-front-end/public/images/homePage/cardImg2.png"
 import cardImg3 from "/cool-movie-project-front-end/public/images/homePage/cardImg3.png"
-
+const url = process.env.REACT_APP_REMOTE_RENDER_URL
 // 卡片資料
 const cards = [
     {
       id: "1",
-      imageSrc: `/cool-movie-project-front-end/public/images/homePage/cardImg1.png`,
+      imageSrc: `/${url}/public/images/homePage/cardImg1.png`,
       title: "分享連結",
       description: "分享專屬連結，送好友 2 張 77 折券"
     },
