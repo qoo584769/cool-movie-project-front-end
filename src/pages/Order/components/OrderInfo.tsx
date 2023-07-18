@@ -86,6 +86,7 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
     const navigate = useNavigate();
     const {id}= useParams();
     let [payData, setPayData] = useState({
+      orderId:'',
       Amt:'',
       Email:'',
       ItemDesc:''
@@ -144,10 +145,11 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
       const url = 'https://crazymovie.onrender.com'
       // const res = await axios.get(`http://127.0.0.1:3000/api/order/getOrder?orderId=${id}`)
       const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
-    console.log(res);
+      console.log(res);
       setOrderInfo(res.data.data);
       // res.data.data.email = 'uh584697213@gmail.com'
       setPayData({
+        orderId:res.data.data._id,
         Amt:res.data.data.price,
         Email:'uh584697213@gmail.com',
         ItemDesc:res.data.data.ItemDesc
