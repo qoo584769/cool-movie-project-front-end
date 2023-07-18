@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 			<nav className="navbar">
 				<div className="container-fluid p-0 space-between">
 					<a className='logo' onClick={() => navigate("/")}>
-						<img src="/cool-movie-project-front-end/public/images/homePage/Logo.svg" alt="" />
+						<img src="/public/images/homePage/Logo.svg" alt="" />
 					</a>
 					<ul className='menuWrap'>
 						<NavLink to={`/benifet`}><li>好康優惠</li></NavLink>

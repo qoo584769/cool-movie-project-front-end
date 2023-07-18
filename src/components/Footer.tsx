@@ -10,7 +10,7 @@ function FooterBlock() {
           {/* 左側欄位 */}
           <div className="col-sm-12 col-md-6">
             <p className="">
-              <img src="/cool-movie-project-front-end/public/images/homePage/Logo.svg" alt="Logo" />
+              <img src="/public/images/homePage/Logo.svg" alt="Logo" />
             </p>
             <p className="">
               <a href="#" className="">聯絡我們</a>
@@ -18,8 +18,8 @@ function FooterBlock() {
               <a href="#" className="">隱私權公告</a>
             </p>
             <p className="">
-              <a href="#" className=""><img src="/cool-movie-project-front-end/public/images/homePage/fb.png" alt="fb" /></a>
-              <a href="#" className=""><img src="/cool-movie-project-front-end/public/images/homePage/ig.png" alt="ig" /></a>
+              <a href="#" className=""><img src="/public/images/homePage/fb.png" alt="fb" /></a>
+              <a href="#" className=""><img src="/public/images/homePage/ig.png" alt="ig" /></a>
             </p>
           </div>
 
