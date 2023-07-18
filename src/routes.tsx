@@ -71,7 +71,7 @@ const routes: RouteObject[] = [
     element: <Order />,
   },
   {
-    path: "/newebpayreturn",
+    path: "/newebpayreturn/:id",
     element: <NewebPay />,
   },
   {

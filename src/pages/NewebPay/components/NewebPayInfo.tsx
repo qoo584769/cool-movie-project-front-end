@@ -5,8 +5,12 @@ import axios from 'axios';
 interface PaymentInfoProps {
 
 }
-
 const NewebPayInfo: React.FC<PaymentInfoProps> = ({ }) => {
+  const {id}= useParams();
+  useEffect(() => {
+    console.log('付款返回',id)
+  }, [id]);
+
   return (
     <>
       <div className="card">
