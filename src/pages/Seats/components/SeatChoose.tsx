@@ -126,7 +126,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   }
   
   const payBtn = (movieData:any)=>{
-    const data = {ItemDesc:movieData.movieId.name,date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`,position:seatSelectData,price:movieData.theaterId.price}
+    const data = {ItemDesc:movieData.movieId.name,date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`,position:seatSelectData,price:movieData.theaterId.price,time:event.time}
     // console.log(data)
     // console.log(movieData)
     const url = 'https://crazymovie.onrender.com'
