@@ -98,7 +98,7 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 	
 		 return (
 			 <div className="input-group mb-3">
-				 <button type="button" className="btn btn-outline-secondary" onClick={() => setValue(value - 1)} disabled={value <= 1}>-</button>
+				 <button type="button" className="btn btn-outline-light" onClick={() => setValue(value - 1)} disabled={value <= 1}>-</button>
 				 <input 
 					 type="number" 
 					 min="0"
@@ -107,7 +107,7 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 					 onChange={handleValueChange}
 					 className="form-control text-center font-weight-bold bg-light border-0 shadow-none"
 				 />
-				 <button type="button" className="btn btn-outline-secondary" onClick={() => setValue(value + 1)}>+</button>
+				 <button type="button" className="btn btn-outline-light" onClick={() => setValue(value + 1)}>+</button>
 			 </div>
 		 );
 	}
@@ -268,24 +268,24 @@ function SelectedEvent(props: any ) {
 									<table className="table text-white">
 										<thead>
 											<tr>
-												<th scope="col">票種</th>
-												<th scope="col">單價</th>
-												<th scope="col">數量</th>
-												<th scope="col">小計</th>
+												<th scope="col" className='bg-main text-white'>票種</th>
+												<th scope="col" className='bg-main text-white'>單價</th>
+												<th scope="col" className='bg-main text-white'>數量</th>
+												<th scope="col" className='bg-main text-white'>小計</th>
 											</tr>  
 										</thead>
 
 										<tbody >
 										{ tickets?.map((ticketItem,index)=>(
 											// Each Row
-												<tr key={index}>
-													<td width="600px">
+												<tr key={index} >
+													<td width="600px" className='bg-main text-white'>
 														{ticketItem.ticketType}
 													</td>
-													<td width="100px">
+													<td width="100px" className='bg-main text-white'>
 														{ticketItem.price}
 													</td>              
-													<td width="200px">
+													<td width="200px" className='bg-main text-white'>
 														{/* {ticketItem.quantity} */}
 														{/* <div className="input-group mb-3">
 															<button type="button" className="btn btn-outline-secondary" onClick={handleSubtractClick}>-</button>
@@ -294,7 +294,7 @@ function SelectedEvent(props: any ) {
 														</div> */}
 														<AddSubtractInput quantity = {ticketItem.quantity}/>
 													</td>
-													<td width="100px">
+													<td width="100px" className='bg-main text-white'>
 														{ticketItem.price*ticketItem.quantity}
 													</td>								
 												</tr>

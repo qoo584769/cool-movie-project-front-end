@@ -69,6 +69,13 @@
   max-width:1920px;
   width:100%;
 }
+
+.h-389{
+  height:389px;
+}
+.mr-20{
+  margin-right: 28px;
+}
 .z-index{
   z-index:1;
 }
@@ -84,6 +91,15 @@
   background-clip: text;
    color: transparent;
   background-size: cover;
+}
+
+.bg-liner{
+  background: linear-gradient(90deg, #8D7129 0.62%, #E7C673 23.69%, #DDD2AC 51.62%, #E7C673 81.1%, #8D7129 99.93%);
+  height: 2px;
+}
+
+.bg-gray02{
+  background: #393a3a;
 }
 
 .fz-40{

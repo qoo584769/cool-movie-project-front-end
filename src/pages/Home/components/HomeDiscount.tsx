@@ -4,7 +4,7 @@ import customer from "images/homePage/customer.png"
 
 export const HomeDiscount = ()=>{
   return (    
-    <div className="bg-discount">
+    <div className="bg-discount my-5">
       <img src="images/homePage/block.png" alt="image" style={{ maxWidth: '100%' }} />
           <div className="container">
             <div className="row">

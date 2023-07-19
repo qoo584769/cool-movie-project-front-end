@@ -53,7 +53,7 @@ const ThreeCards = (props: { title: string | number | boolean | React.ReactEleme
 
 export const HomeCallToAction = ()=>{
   return (    
-    <div className="bg-dark">
+    <div className="bg-dark my-5">
 
       <div className="container bd-gold">
         <ThreeCards 

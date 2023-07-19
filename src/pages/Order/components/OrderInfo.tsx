@@ -59,11 +59,11 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
             <span className='col-8 text-end'>{price} 元</span>
             <span className='col-4'>手續費：</span>   
         	  <span className='col-8 text-end'>{20}</span>  
-            <span className='col-4' style={{ fontSize: "16px", color: "#333" }}>總計：</span>   
+            <span className='col-4' style={{ fontSize: "16px", color: "#fff" }}>總計：</span>   
         	  <span className='col-8 text-end'>{total}</span>  
          </div>
 
-         <div className="row my-4">  
+         <div className="row my-3">  
            {/* <div className="col-6">
              <button type="button" className="w-100 btn btn-outline-warning">
                重新選票
@@ -74,7 +74,7 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
            	 前往訂位
            	</button> */}
              {/* <button className="btn btn-warning" onClick={()=>btnPay(payData)}>結帳</button> */}
-             <button className="btn btn-warning" onClick={()=>btnPay()}>結帳</button>
+             <button className="btn btn-warning d-none" onClick={()=>btnPay()}>結帳</button>
            </div>
         </div>        
       </div>
@@ -154,68 +154,68 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
         Email:'uh584697213@gmail.com',
         ItemDesc:res.data.data.ItemDesc
       });   
+      btnPay()
     })();    
-  }, [id]);
-  
+  }, []);
   return (
     
     <div className="container mt-5">      
       <div className="row mt-5">
         
         <div className="col-8">     
-        <form className='' action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
+        <form className='d-non' action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
             <div className="form-group ">
               {/* MerchantID field */}
-              <div className="form-floating mb-3">
-                <input type="text" name="MerchantID" id="MerchantID" className="form-control d-none" value="MS148574761"/>
+              <div className="form-floating mb-3 d-none">
+                <input type="text" name="MerchantID" id="MerchantID" className="form-control " value="MS148574761"/>
                 <label htmlFor="MerchantID">Merchant ID:</label>
               </div>
               {/* TradeSha field */}
-              <div className="form-floating mb-3">
-                <input type='text' name='TradeSha' id='TradeSha' className='form-control d-none' value={newebpayData.TradeSha}/>
+              <div className="form-floating mb-3 d-none">
+                <input type='text' name='TradeSha' id='TradeSha' className='form-control ' value={newebpayData.TradeSha}/>
                 <label htmlFor='TradeSha'>Trade Sha:</label>
               </div>
 
               {/* TradeInfo field */}
-              <div className="form-floating mb-3">
-                <input type='text' name='TradeInfo' id ='TradeInfo' className = "form-control d-none" value={newebpayData.TradeInfo} />
+              <div className="form-floating mb-3 d-none">
+                <input type='text' name='TradeInfo' id ='TradeInfo' className = "form-control " value={newebpayData.TradeInfo} />
                 <label htmlFor='TradeInfo'>Trade Info:</label>                
               </div>
 
               {/* TimeStamp field */}
-              <div className="form-floating mb-3">
-                <input type ='text' name = 'TimeStamp' id = 'TimeStamp' className= "form-control d-none" value ={newebpayData.TimeStamp} />
+              <div className="form-floating mb-3 d-none">
+                <input type ='text' name = 'TimeStamp' id = 'TimeStamp' className= "form-control " value ={newebpayData.TimeStamp} />
                 <label htmlFor ='TimeStamp'>TimeStamp:</label>     
               </div>
 
-              <div className="form-floating mb-3">
+              <div className="form-floating mb-3 d-none">
                 {/* Version field*/}
-                <input type ="text" name ="Version" id ="Version" className = "form-control d-none" value ={newebpayData.Version} />
+                <input type ="text" name ="Version" id ="Version" className = "form-control" value ={newebpayData.Version} />
                 <label htmlFor ="Version">Version: </label> 
               </div>
 
-              <div className="form-floating mb-3">
+              <div className="form-floating mb-3 d-none">
                 {/* MerchantOrderNo */}
-                <input type ='text' name =' MerchantOrderNo' id= 'MerchantOrderNo' className =" form-control d-none" value ={newebpayData.MerchantOrderNo} />
+                <input type ='text' name =' MerchantOrderNo' id= 'MerchantOrderNo' className =" form-control" value ={newebpayData.MerchantOrderNo} />
                 <label htmlFor= 'MerchantOrderNo'> 訂單編號</label>  
               </div>
 
-              <div className="form-floating mb-3">
+              <div className="form-floating mb-3 d-none">
                 {/* Amt field */}
                 <input type='text' name='Amt' id='Amt' className='form-control' value={payData.Amt}/>
                 <label htmlFor='Amt'>金額</label>
               </div>
 
-              <div className="form-floating mb-3">
+              <div className="form-floating mb-3 d-none">
                 {/* ItemDesc field */}
                 <input type="text" name="ItemDesc" id="ItemDesc" className ="form-control" value ={payData.ItemDesc} />
                 <label htmlFor = "ItemDesc">電影名稱</label> 
               </div>
 
               <div className="form-floating mb-3">
-                Email field
-                <input type ='email' name ='Email' id = 'Email' className= "form-control" value ={newebpayData.Email} onChange={emailChange}/>
-                <label htmlFor ='Email'>信箱</ label>
+                {/* Email field */}
+                <input type ='email' name ='Email' id = 'Email' className= "form-control " value ={newebpayData.Email} onChange={emailChange}/>
+                <label htmlFor ='Email' className=''>信箱</ label>
               </div>
 
               {/* <div className="form-floating mb-3">
@@ -224,7 +224,7 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
                 <label htmlFor ='Email'>Email address: </label>
               </div> */}
             </div>
-            <button type="submit" className='btn btn-primary'>送出</button>
+            <button type="submit" className='btn btn-outline-warning'>結帳</button>
           </form>     
         </div>
         

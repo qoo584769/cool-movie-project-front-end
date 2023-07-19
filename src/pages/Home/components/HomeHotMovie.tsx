@@ -2,7 +2,7 @@ import hotMovieImg from "images/homePage/hotMovieImg.png"
 
 export const HomeHotMovie = () => {
   return (
-    <div className="bg-main">
+    <div className="bg-main my-5">
       <div className="container">
       <div className="row">
         <div className="col-6 col-md-6">

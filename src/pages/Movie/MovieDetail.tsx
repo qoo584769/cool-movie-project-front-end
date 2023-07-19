@@ -74,7 +74,7 @@ const DetailInfo = () => {
           <div className="col-md-4 mb-3">
             <div className="card bg-dark">
               <img src={movieData[0]?.screen.movieId.imgs[0]} className="card-img-top" alt="Image 1" />
-              <div className="card-body px-0 pb-0">
+              <div className="card-body px-0 pb-0 text-white">
                 <h5 className="card-title d-flex justify-content-between">
                   <span className="">上映日期:</span>
                   {
@@ -101,7 +101,7 @@ const DetailInfo = () => {
               <div className="text-gold">熱映中 NOW SHOWING</div>
               <div className="text-white mt-4">{movieData[0]?.screen.movieId.name}</div>
               <div className="mt-4">
-                <span className="border border-1 text-white p-2 me-3">護</span>
+                <span className="border border-1 text-white p-2 me-3">普</span>
                 <span className="border border-1 text-white p-2">{movieData[0]?.screen.movieId.time}分</span>
               </div>
             </div>
@@ -110,22 +110,22 @@ const DetailInfo = () => {
               <div className="">
                 線上訂票
               </div>
-              <div className="">
+              {/* <div className="">
                 <a href="#" className="">XL 100 席皇家廳</a>
                 <a href="#" className="">L 50 席豪華廳</a>
-              </div>
+              </div> */}
             </div>
-            <hr className="bd-gold"></hr>
+            <div className="bg-liner my-4"></div>
             <ul className="list-group list-group-flush">
 
               {movieData.map((item,index)=>{
                  return (
-                   <li key={item.screen._id} className="list-group-item">
+                   <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 ps-0">
                    {/* <div key="item.screen._id">{item.formattedDate}</div> */}
-                   <div className="">{item.formattedDate}</div>
-                <div className="">
+                   <div className="mb-3">{item.formattedDate}</div>
+                  <div className="">
                   <button type="button" className="btn btn-outline-warning me-3" onClick={()=>handleClick(item.screen._id)}>{new Date(item.screen.startDate).toISOString().split('T')[1].substr(0, 5)}</button>
-                </div>
+                  </div>
                    </li>
                  )
               })}

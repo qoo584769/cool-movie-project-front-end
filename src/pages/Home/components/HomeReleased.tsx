@@ -30,8 +30,24 @@ export const HomeReleased = () => {
   // ---------------------
   // ---------------------
 
+  // ---------------------
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % movieData.length);
+  };
+
+  const previousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + movieData.length) % movieData.length);
+  };
+
+  const filter = movieData.filter(item => item.status === 1)
+  const visibleImages = filter.slice(currentImageIndex, currentImageIndex + 4);
+
+  // ---------------------
+
   return (
-    <div className="bg-main">
+    <div className="bg-main my-5">
       <div className="container ">
       <div className="row align-items-center pb-4">
         <div className="col-lg-6 d-flex ">
@@ -39,8 +55,8 @@ export const HomeReleased = () => {
           <span className="d-block text-liner fs-2">NOW SHOWING</span>
         </div>
         <div className="col-lg-6 d-flex justify-content-end">
-          <img src="images/homePage/oArrowLeft.png" alt="Logo" className="online-arrow me-4"/>
-          <img src="images/homePage/oArrowRight.png" alt="Logo" className="online-arrow"/>
+          <img src="images/homePage/oArrowLeft.png" alt="Logo" className="online-arrow me-4" onClick={previousImage}/>
+          <img src="images/homePage/oArrowRight.png" alt="Logo" className="online-arrow" onClick={nextImage}/>
         </div>
       </div>
       <div className="bg-line"></div>
@@ -48,12 +64,12 @@ export const HomeReleased = () => {
         {/* --------------- */}
         {
         // data?(
-          movieData?.map((item)=>{
-            return (      
+          visibleImages?.map((item)=>{
+            return (    
             <div key={item._id} className="col">
               <div className="card text-white bg-dark">
                 <Link to={`/movie/${item._id}`}>                  
-                  <img src={item.imgs[0]} className="img-fluid card-img-top" alt="Image 1" />
+                  <img src={item.imgs[0]} className="img-fluid card-img-top d-block h-389" alt="Image 1" />
                 </Link>
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>

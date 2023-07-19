@@ -189,7 +189,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
             <span className='col-8 text-end'>{ticketPrice} 元</span>
             <span className='col-4'>手續費：</span>   
         	  <span className='col-8 text-end'>{handlingFee}</span>  
-            <span className='col-4' style={{ fontSize: "16px", color: "#333" }}>總計：</span>   
+            <span className='col-4' style={{ fontSize: "16px", color: "#fff" }}>總計：</span>   
         	  <span className='col-8 text-end'>{total}</span>  
          </div>
 
@@ -232,7 +232,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     const seatClass = props.isTaken ? "seat taken" : "seat available";
     // console.log(props.movieData)
     return (
-      <span className="checkbox- me-2">
+      <span className="me-3">
         {/* <input
           type="checkbox"
           id={props.ckeckId}
@@ -352,16 +352,22 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
 
           <div className="row">
             <div className="col-1"></div>
-            <div className="col-10">
+            <div className="col-10 ofset-1">
             
-            <div className="d-flex align-items-center ustify-content-center mb-3">
-          		<span className="font-weight-bold me-2"> </span> {/* 空一格，讓數字對齊 */}
-          		{[...Array(14)].map((_, i) => ( /* 建立1~14的陣列 */
-            		<span key={i} className="me-3">{i+1}</span>
-          		 ))}
-      	     </div>
+              <div className="d-flex align-items-center ustify-content-center mb-3 ">
+                <span className="font-weight-bold me-2"> </span> {/* 空一格，讓數字對齊 */}
+                {[...Array(14)].map((_, i) => ( /* 建立1~14的陣列 */
+                  <span key={i} className="mr-20 text-center">{i+1}</span>
+                ))}
+              </div>
               
             </div>
+            {/* <div className="row mb-3">
+      	<div className="col-1 text-center font-weight-bold">{props.rowName}</div>
+      	<div className="col-10 ofset-1">
+          	{seats}
+        </div>
+  	  </div> */}
           </div>
           
           {rows}

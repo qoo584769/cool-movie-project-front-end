@@ -27,8 +27,20 @@ export const HomeComimgMovie = () => {
   // ---------------------
   // ---------------------
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % movieData.length);
+  };
+
+  const previousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + movieData.length) % movieData.length);
+  };
+
+  const filter = movieData.filter(item => item.status === 0)
+  const visibleImages = filter.slice(currentImageIndex, currentImageIndex + 4);
   return (
-    <div className="bg-main">
+    <div className="bg-main my-5">
       <div className="container ">
       <div className="row align-items-center pb-4">
         <div className="col-lg-6 d-flex ">
@@ -36,20 +48,20 @@ export const HomeComimgMovie = () => {
           <span className="d-block text-liner fs-2">COMING SOON</span>
         </div>
         <div className="col-lg-6 d-flex justify-content-end">
-          <img src="images/homePage/oArrowLeft.png" alt="Logo" className="online-arrow me-4"/>
-          <img src="images/homePage/oArrowRight.png" alt="Logo" className="online-arrow"/>
+          <img src="images/homePage/oArrowLeft.png" alt="Logo" className="online-arrow me-4" onClick={previousImage}/>
+          <img src="images/homePage/oArrowRight.png" alt="Logo" className="online-arrow" onClick={nextImage}/>
         </div>
       </div>
       <div className="bg-line"></div>
       <div className="row row-cols-md-4 g-4">
         {/* --------------- */}
         {
-          movieData.map((item)=>{
+          filter?.map((item)=>{
             return (      
             <div key={item._id} className="col">
               <div className="card text-white bg-dark">
                 <Link to={`/detail/${item._id}`}>
-                  <img src={item.imgs[0]} className="img-fluid card-img-top" alt="Image 1" />
+                  <img src={item.imgs[0]} className="img-fluid card-img-top  d-block h-389" alt="Image 1" />
                 </Link>
                 
                 <div className="card-body">

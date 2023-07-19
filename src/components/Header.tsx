@@ -62,10 +62,10 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 					<a className='logo' onClick={() => navigate("/")}>
 						<img src="images/homePage/Logo.svg" alt="" />
 					</a>
-					<ul className='menuWrap'>
+					{/* <ul className='menuWrap'>
 						<NavLink to={`/benifet`}><li>好康優惠</li></NavLink>
 						<NavLink to={`/aboutus`}><li>關於影城</li></NavLink>
-					</ul>
+					</ul> */}
 					{isLogin ? (
 						<div className='loginNav'>
 							<NavLink className="nav-link navLink" to={`/member`}>
