@@ -153,9 +153,11 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
         Email:'uh584697213@gmail.com',
         ItemDesc:res.data.data.ItemDesc
       });   
-      btnPay()
     })();    
   }, []);
+  useEffect(()=>{
+    btnPay()
+  },[payData])
   return (
     
     <div className="container mt-5">      
@@ -213,7 +215,7 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
 
               <div className="form-floating mb-3">
                 {/* Email field */}
-                <input type ='email' name ='Email' id = 'Email' className= "form-control " value ={newebpayData.Email} onChange={emailChange}/>
+                <input type ='email' name ='Email' id = 'Email' className= "form-control" value ={newebpayData.Email} onChange={emailChange}/>
                 <label htmlFor ='Email' className=''>信箱</ label>
               </div>
 
