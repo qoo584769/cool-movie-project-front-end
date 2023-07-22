@@ -121,9 +121,8 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
   const btnPay = (data:any={})=>{
     const data1 = payData;
     const url = 'https://crazymovie.onrender.com'
-        // axios.post('http://127.0.0.1:3000/api/newebpay/createOrder',data).then(res=>{
-        axios.post(`${url}/api/newebpay/createOrder`,data1).then(res=>{
-      console.log(res);
+      axios.post(`${url}/api/newebpay/createOrder`,data1).then(res=>{
+          console.log(res);
           setNewebpayData({
             TimeStamp : res.data.data.order.TimeStamp,
             MerchantOrderNo : res.data.data.order.MerchantOrderNo,

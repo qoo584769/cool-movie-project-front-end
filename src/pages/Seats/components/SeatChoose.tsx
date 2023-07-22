@@ -28,7 +28,13 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   })
   
   const [seatSelectData, setSeatSelectData] = useState('')
-  const [movieData, setMovieData] = useState(undefined);
+  const [movieData, setMovieData] = useState({
+    _id:'',
+    movieId:{},
+    seatsStatus:[],
+    startDate:'',
+    theaterId:{}
+  });
   const [tickets, setTickets] = useState([
     // { type: "", price: 0, quantity: 0 },
     { ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)", price: 980, quantity: 1 },
@@ -130,7 +136,8 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       ItemDesc:movieData.movieId.name, 
       date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`, position:seatSelectData,
       price:movieData.theaterId.price, 
-      time
+      time,
+      screenId:`${id}`
     }
     // console.log(data)
     // console.log(movieData)
@@ -272,7 +279,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
 
   function SeatRow(props:any) {
     const seats = [];
-  
+    console.log(`275行 : ${movieData ? movieData.seatsStatus[0] : 'no data'}`);
     for (let i = props.rowStart; i <= props.rowEnd; i++) {
       seats.push(
         <Seat key={i} seatNumber={i} isTaken={props.takenSeats.includes(i)} movieData = {movieData} seatData={props.rowNum?.seatsStatus[i-1]} ckeckId={i}/>
