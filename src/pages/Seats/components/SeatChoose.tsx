@@ -31,7 +31,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   const [movieData, setMovieData] = useState({
     _id:'',
     movieId:{},
-    seatsStatus:[],
+    seatsStatus:[{ seat_id: "", is_booked: false }],
     startDate:'',
     theaterId:{}
   });
@@ -300,7 +300,8 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   // 座位表預設
   // ------------------------------------
   // 假設已有被預定的位置
-   const takenSeats = [4,5,12];
+  //  const takenSeats = [4,5,12];
+   const takenSeats = movieData.seatsStatus.filter((item,ind)=>item.is_booked).map((item,ind)=> ind + 1);
 
    // 計算每排開始、結束的位置及該排是否需要留空
    const rowsConfig = [
