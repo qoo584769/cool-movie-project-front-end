@@ -13,10 +13,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ }) => {
 	const [state, dispatch] = useContext(OrderContext);
 	const [isLogin, setIsLogin] = useState(false)
+	const [seatPage, setSeatPage] = useState<any>(false);
 	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
 	const navigate = useNavigate()
 
+	useEffect(() => {
+
+	}, [seatPage])
 	useEffect(() => {
 		const rememberMe = getCookie("remember_me");
 
@@ -78,6 +82,8 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 						<Login
 							isLogin={isLogin}
 							setIsLogin={setIsLogin}
+							setSeatPage={setSeatPage}
+							seatPage={false}
 						/>
 					)}
 

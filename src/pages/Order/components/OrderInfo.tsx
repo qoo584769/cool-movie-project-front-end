@@ -1,5 +1,6 @@
 import React, { useContext,useState, useEffect,useLayoutEffect,ChangeEvent } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { getMember } from "../../../api/member";
 import axios from 'axios';
 // import PaymentForm from './OrderForm'
 
@@ -142,19 +143,23 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
       const url = 'https://crazymovie.onrender.com'
-      // const res = await axios.get(`http://127.0.0.1:3000/api/order/getOrder?orderId=${id}`)
+      const { data: response } = await getMember();
+      const { data: memberInfo } = response;
+      const { email } = memberInfo;
       const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
       console.log(res);
+      console.log('email : ',email);
+      
       setOrderInfo(res.data.data);
-      // res.data.data.email = 'uh584697213@gmail.com'
       setPayData({
         orderId:res.data.data._id,
         Amt:res.data.data.price,
-        Email:'uh584697213@gmail.com',
+        Email:email,
         ItemDesc:res.data.data.ItemDesc
       });   
     })();    
   }, []);
+
   useEffect(()=>{
     btnPay()
   },[payData])

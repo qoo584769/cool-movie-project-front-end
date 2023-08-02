@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { useContext, useState, useEffect } from 'react'
-import { OrderContext } from '../../store';
-import { useForm } from "react-hook-form";
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { OrderContext } from '../../store';
+import {Login} from '../../components/Login';
+import { authFetch, logoutClear, getCookie } from '../../utilities';
 import axios from 'axios';
 interface OrderFastProps {
 
@@ -29,6 +31,9 @@ interface Event {
 export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 	const [state, dispatch] = useContext(OrderContext);
 	const { register, handleSubmit } = useForm<TickNumberType>();
+	const [isLogin, setIsLogin] = useState(false)
+	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
+	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
 	const navigate = useNavigate()
 	const {id}= useParams();
 
@@ -53,13 +58,23 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
   
 	const [value, setValue] = useState<number>(1);
 
+	const [seatPage, setSeatPage] = useState<any>(false);
+
   const handleBackClick = (id: any) => {
       // 在此處設定要跳轉的路徑
       navigate(`/movie/${id}`);
   }
   const handleToSeatClick = (id: any, ticketNum:any) => {
-      // 在此處設定要跳轉的路徑
-      navigate(`/chooseSeates/${id}/${ticketNum}`);
+		console.log(isLogin)
+			if( isLogin ){
+				// 在此處設定要跳轉的路徑
+				navigate(`/chooseSeates/${id}/${ticketNum}`);
+				return
+			}
+			else{
+					// <Login isLogin={isLogin} setIsLogin={setIsLogin}></Login>
+					setSeatPage(true)
+			}
   }
   
 	// 加減按鈕
@@ -86,25 +101,27 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 		
 	
 		const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-			console.log(event.target.value)
 			let newValue = parseInt(event.target.value);
-			if (!isNaN(newValue)) {
-				setValue(newValue);
-			}else if (newValue < 1) {
-				newValue = 1;
-			}
-			console.log(value)
+			console.log(event)
+			// if (!isNaN(newValue)) {
+			// 	setValue(newValue);
+			// }else if (newValue < 1) {
+			// 	newValue = 1;
+			// }
+			// console.log(value)
+			console.log(123);
+			
 		};
 	
 		 return (
-			 <div className="input-group mb-3">
+			 <div className="input-group mb-3 bg-dark">
 				 <button type="button" className="btn btn-outline-light" onClick={() => setValue(value - 1)} disabled={value <= 1}>-</button>
 				 <input 
 					 type="number" 
 					 min="0"
 					 max="9999"
 					 value={value} 
-					 onChange={handleValueChange}
+					 onChange={(e)=>handleValueChange(e)}
 					 className="form-control text-center font-weight-bold bg-light border-0 shadow-none"
 				 />
 				 <button type="button" className="btn btn-outline-light" onClick={() => setValue(value + 1)}>+</button>
@@ -112,7 +129,6 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 		 );
 	}
 	// 加減按鈕
-
   useEffect(() => {
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
@@ -127,7 +143,7 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
         ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)",
         price: parseInt( `${res.data.data.theaterId.price+500+150}`),
         // price: 850,
-        quantity: 1
+        quantity: value
       };
       setMovieData(res.data.data);
       setTickets([ticketData]);
@@ -135,12 +151,82 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
         date: `${new Date(res.data.data?.startDate).toISOString().split('T')[0]}`,
         time: `${new Date(res.data.data?.startDate).toISOString().split('T')[1].substr(0, 5)}`,
         movieTitle:`${res.data.data?.movieId.name}`,
-        ticketPrice: `${tickets[0].price}`,
+        ticketPrice: `${tickets[0].price * value}`,
         handlingFee: 20,
       })
-    })();
-    
+    })();    
   }, []);
+  useEffect(() => {
+    // 在組件加載完成後發送 GET 請求獲取數據
+    (async()=>{
+			console.log(id);
+			const url = 'https://crazymovie.onrender.com'
+      // const res = await axios.get(`http://127.0.0.1:3000/api/screens/${id}`)
+      const res = await axios.get(`${url}/api/screens/${id}`)
+    console.log(res.data.data);
+    // console.log(res);
+      // setMovieData(res.data.data);
+      const ticketData = {
+        ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)",
+        price: parseInt( `${res.data.data.theaterId.price+500+150}`),
+        // price: 850,
+        quantity: value
+      };
+      setMovieData(res.data.data);
+      setTickets([ticketData]);
+      setEvent({
+        date: `${new Date(res.data.data?.startDate).toISOString().split('T')[0]}`,
+        time: `${new Date(res.data.data?.startDate).toISOString().split('T')[1].substr(0, 5)}`,
+        movieTitle:`${res.data.data?.movieId.name}`,
+        ticketPrice: `${tickets[0].price * value}`,
+        handlingFee: 20,
+      })
+    })();    
+  }, [value]);
+
+// -----------------------
+useEffect(() => {
+	const rememberMe = getCookie("remember_me");
+
+	if (token) {
+		const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
+		const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
+		const currentTime = Math.floor(Date.now() / 1000);
+
+		// 如果原本的token沒過期，則繼續向後端拿資料
+		if (rememberMe && tokenExpTime > currentTime) {
+			(async function () {
+				try {
+					let response = await authFetch.get('/api/member/getUser')
+					const userName = response.data.data.nickName
+
+					dispatch({
+						type: "ADD_MEMBER_DATA",
+						payload: {
+							memberId: userId,
+							memberName: userName,
+							status: "member"
+						}
+					})
+				} catch (error) {
+					console.log('error', error);
+				}
+				setIsLogin(true)
+			}())
+		} else {
+			logoutClear(dispatch)
+			setIsLogin(false)
+		}
+	} else {
+		logoutClear(dispatch)
+		setIsLogin(false)
+	}
+}, [dispatch])
+// -----------------------
+useEffect(() => {
+
+},[seatPage])
+
 // -----------------------
 
 // -----------------------
@@ -204,6 +290,9 @@ function SelectedEvent(props: any ) {
 					 <button type="button" className="w-100 btn btn-warning" onClick={()=>handleToSeatClick(movieData._id, value)}>
 						前往訂位
 					 </button>
+					 <div className="position-absolute" style={{top: "-100000px"}}>
+					 	<Login isLogin={isLogin} setIsLogin={setIsLogin} setSeatPage={setSeatPage} seatPage={seatPage}></Login>
+					 </div>
 				 </div>
 			</div>        
 		</div>
@@ -268,10 +357,10 @@ function SelectedEvent(props: any ) {
 									<table className="table text-white">
 										<thead>
 											<tr>
-												<th scope="col" className='bg-main text-white'>票種</th>
-												<th scope="col" className='bg-main text-white'>單價</th>
-												<th scope="col" className='bg-main text-white'>數量</th>
-												<th scope="col" className='bg-main text-white'>小計</th>
+												<th scope="col" className='bg-dark text-white'>票種</th>
+												<th scope="col" className='bg-dark text-white'>單價</th>
+												<th scope="col" className='bg-dark text-white'>數量</th>
+												<th scope="col" className='bg-dark text-white'>小計</th>
 											</tr>  
 										</thead>
 
@@ -279,13 +368,13 @@ function SelectedEvent(props: any ) {
 										{ tickets?.map((ticketItem,index)=>(
 											// Each Row
 												<tr key={index} >
-													<td width="600px" className='bg-main text-white'>
+													<td width="600px" className='bg-dark text-white'>
 														{ticketItem.ticketType}
 													</td>
-													<td width="100px" className='bg-main text-white'>
+													<td width="100px" className='bg-dark text-white'>
 														{ticketItem.price}
 													</td>              
-													<td width="200px" className='bg-main text-white'>
+													<td width="200px" className='bg-dark text-white'>
 														{/* {ticketItem.quantity} */}
 														{/* <div className="input-group mb-3">
 															<button type="button" className="btn btn-outline-secondary" onClick={handleSubtractClick}>-</button>
@@ -294,7 +383,7 @@ function SelectedEvent(props: any ) {
 														</div> */}
 														<AddSubtractInput quantity = {ticketItem.quantity}/>
 													</td>
-													<td width="100px" className='bg-main text-white'>
+													<td width="100px" className='bg-dark text-white'>
 														{ticketItem.price*ticketItem.quantity}
 													</td>								
 												</tr>

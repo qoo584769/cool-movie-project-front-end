@@ -4,18 +4,33 @@ import { SingIn, SignUp } from './';
 interface LoginProps {
 	isLogin: boolean
 	setIsLogin: Dispatch<SetStateAction<boolean>>
+	setSeatPage: Dispatch<SetStateAction<boolean>>
+	seatPage:boolean
 }
 
-export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin }) => {
+export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin, setSeatPage, seatPage }) => {
+	const [page, setPage] = useState(seatPage)
 	const [currentTab, setCurrentTab] = useState('login')
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const myModal = useRef<bootstrap.Modal | null>(null);
 	let openModal = () => {
 		myModal?.current?.show()
 	}
+	let closeModal = () => {
+		setPage(false)
+		setSeatPage(false)
+		myModal?.current?.hide()	
+	}
 	useEffect(() => {
 		myModal.current = new bootstrap.Modal(modalRef.current as HTMLElement);
 	}, []);
+	useEffect(() => {
+		
+		if(page){
+			openModal()
+			console.log(123)
+		}
+	}, [page]);
 
 	return (
 		<>
@@ -27,7 +42,7 @@ export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin }) => {
 					<div className="modal-content modelWrap">
 						<div className="modal-body">
 							<div className="form-wrap">
-								<i className="bi bi-x" data-bs-dismiss="modal"></i>
+								<i className="bi bi-x" onClick={closeModal}></i>
 								<div className="tabs">
 									<h6 className="login-tab">
 										<button

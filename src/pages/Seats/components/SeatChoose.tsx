@@ -9,25 +9,10 @@ interface SeatInfoProps {
 export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   
   const navigate = useNavigate();
-  const {id}= useParams();
+  const {id, tickNumber}= useParams();
 
   let [orderData, setOrderData] = useState({})
-  let [payData, setPayData] = useState({
-    Amt:'',
-    Email:'',
-    Name:''
-  })
-  let [newebpayData,setNewebpayData] = useState({
-    TimeStamp:'',
-    MerchantOrderNo:'',
-    TradeSha:'',
-    TradeInfo : '',
-    ItemDesc : '',
-    MerchantID : 'MS148574761',
-    Version : '1.5'
-  })
-  
-  const [seatSelectData, setSeatSelectData] = useState('')
+  const [seatSelectData, setSeatSelectData] = useState([])
   const [movieData, setMovieData] = useState({
     _id:'',
     movieId:{},
@@ -77,6 +62,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     (async()=>{
       const url = 'https://crazymovie.onrender.com'
     console.log(id)
+    console.log(tickNumber)
       // const res = await axios.get(`http://127.0.0.1:3000/api/screens/${id}`)
       const res = await axios.get(`${url}/api/screens/${id}`)
     console.log(res.data.data);
@@ -85,7 +71,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       const ticketData = {
         ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)",
         price: parseInt(`${res.data.data.theaterId.price+500+150}`),
-        quantity: 1
+        quantity: parseInt(`${tickNumber}`)
       };
       setMovieData(res.data.data);
       setTickets([ticketData]);
@@ -93,42 +79,58 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
         date: `${new Date(res.data.data?.startDate).toISOString().split('T')[0]}`,
         time: `${new Date(res.data.data?.startDate).toISOString().split('T')[1].substr(0, 5)}`,
         movieTitle:`${res.data.data?.movieId.name}`,
-        ticketPrice: parseInt(`${tickets[0].price}`),
+        ticketPrice: parseInt(`${tickets[0].price * tickets[0].quantity}`),
         handlingFee: 20,
       })
     })();
     
   }, []);
-
+  const [pos, setPos] = useState<any>([])
+  const [unoccupied, setUnoccupied] = useState(0)
   const seatBtn=(seatItem:any ={},movieData:any ={},position:any)=>{
-    // setSeatSelectData(seatItem.seat_id)
-    // console.log("seatitem",item)
-    // console.log("movieData",movieData)
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    )
-    setCheckedState(updatedCheckedState);
-    setSeatSelectData(checkedState[position]?'尚未選擇位置':seatItem.seat_id)
-    console.log(checkedState)
-  }
-
-  const btnPay = (data:any)=>{
-    const url = 'https://crazymovie.onrender.com'
-        // axios.post('http://127.0.0.1:3000/api/newebpay/createOrder',data).then(res=>{
-        axios.post(`${url}/api/newebpay/createOrder`,data).then(res=>{
-      console.log(res);
-          setNewebpayData({
-            TimeStamp : res.data.data.order.TimeStamp,
-            MerchantOrderNo : res.data.data.order.MerchantOrderNo,
-            TradeSha : res.data.data.sha,
-            TradeInfo : res.data.data.aes,
-            ItemDesc : res.data.data.order.Name,
-            MerchantID : 'MS148574761',
-            Version : '1.5'
-          })
-    }).catch(e=>{
-      console.log(e);
-    })
+    if(unoccupied < (tickNumber ? parseInt(tickNumber) : 0)){    
+      const updatedCheckedState = checkedState.map((item, index) =>
+        index === position ? !item : item
+      )
+      const unoccupiedSeat = updatedCheckedState.filter(item=>item === true).length
+      setUnoccupied(unoccupiedSeat)
+      setCheckedState(updatedCheckedState);
+      setPos((pre: any)=>{
+        const index = pre.findIndex((item:any)=>item === seatItem.seat_id)
+        if(index !== -1){
+          pre.splice(index,1)
+          setSeatSelectData(checkedState[position]?'尚未選擇位置': pre)
+          return [...pre]
+        }
+        pre = [...pre,seatItem.seat_id]
+        setSeatSelectData(checkedState[position]?'尚未選擇位置': pre)
+        return pre
+      })
+      // setSeatSelectData(checkedState[position]?'尚未選擇位置':seatItem.seat_id)
+      console.log(checkedState)
+    }
+    else{
+      const updatedCheckedState = checkedState.map((item, index) =>
+        {
+          if(item.toString() === 'true'){
+            return index === position ? !item : item
+        }
+        return item
+        }
+      )
+      const unoccupiedSeat = updatedCheckedState.filter(item=>item === true).length
+      setUnoccupied(unoccupiedSeat)
+      setCheckedState(updatedCheckedState);
+      setPos((pre: any)=>{
+        const index = pre.findIndex((item:any)=>item === seatItem.seat_id)        
+        if(index !== -1){
+          pre.splice(index,1)
+          setSeatSelectData(checkedState[position]?'尚未選擇位置': pre)
+          return [...pre]
+        }
+        return pre
+      })      
+    }
   }
   
   const payBtn = (movieData:any,time:any)=>{
@@ -139,32 +141,12 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       time,
       screenId:`${id}`
     }
-    // console.log(data)
-    // console.log(movieData)
+    
     const url = 'https://crazymovie.onrender.com'
-    // const res = axios.post(`http://127.0.0.1:3000/api/order/createOrder`,data).then(res=>{
     const res = axios.post(`${url}/api/order/createOrder`,data).then(res=>{
-      console.log(res)
-      // setOrderData = res.data.data;
+      setOrderData = res.data.data;
       navigate(`/order/${res.data.data._id}`);
-      return res.data.data;
-    }).then(res=>{      
-      // console.log(res);
-      // setOrderData(res);
-      // console.log(orderData.price)
-      // setPayData({
-      //   Amt:orderData.price,
-      //   Email:'uh584697213@gmail.com',
-      //   ItemDesc:orderData.ItemDesc
-      // });      
     })
-
-    // ------------------------
-    // const newPayData = {
-    //   Amt:payData.value.Amt,
-    //   Email:payData.value.Email,
-    //   ItemDesc:payData.value.Name
-    // }
   }
   // 票券頁面右邊的顯示選擇資訊
   // ------------------------------------
@@ -176,8 +158,8 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     return (
       <div className="container bd-gold">
         {/* Title */}
-        <div className="title">您選定的場次 {seatSelectData ? seatSelectData:'尚未選位置'}</div>
-        
+        <div className="title">剩餘 {tickNumber ? parseInt(tickNumber) - unoccupied : 0 } 個位置尚未選擇</div>
+        <div className="title">您選定的位置 {seatSelectData ? pos.join(','):'尚未選位置'}</div>
         <div className="bg-gold my-4" style={{ height: "2px"}}></div>
         {/* Date and Time and Movie */}
         <div className="row ">
@@ -216,63 +198,23 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       )
   }
   // ------------------------------------
-  
-  // 票券預設資訊
-  // ------------------------------------
-  // const event = {
-    // date: `${new Date(movieData?.startDate).toISOString().split('T')[0]}`,
-    // date: `2023-07-20`,
-    // time: `${new Date(movieData?.startDate).toISOString().split('T')[1].substr(0, 5)}`,
-    // time: `14:00`,
-    // movieTitle:`${movieData?.movieId.name}`,
-    // movieTitle:`鈴芽之旅`,
-    // ticketPrice: `${parseInt(movieData?.theaterId.price)}`,    
-    // ticketPrice: 220,
-    // ticketPrice: `${tickets[0].price}`,
-    // handlingFee: 20,
-  // };
-  // ------------------------------------
 
   // 座位表
   // ------------------------------------
   function Seat(props:any) {
     const seatClass = props.isTaken ? "seat taken" : "seat available";
-    // console.log(props.movieData)
     return (
       <span className="me-3">
-        {/* <input
-          type="checkbox"
-          id={props.ckeckId}
-          className={seatClass}
-          disabled={props.isTaken} 
-          onClick={()=>seatBtn(props.seatData, movieData)}
-        >
-          {props.seatNumber}
-        </input> */}
-        {/* <label htmlFor={props.ckeckId}>{props.ckeckId}</label> */}
-        {/* <label>
-          <input
-          type="checkbox"
-          className={seatClass}
-          disabled={props.isTaken} 
-          onChange={()=>seatBtn(props.seatData, movieData)}
-        > */}
-          {/* {props.seatNumber} */}
-        {/* </input> */}
-          {/* {props.ckeckId}</label> */}
-{/* 測試選單按鈕 */}
         <div className="d-inline-block checkbox-circle">
-        <input
-          type="checkbox"
-          id={`custom-checkbox-${props.ckeckId}`}
-          className={seatClass}
-          checked={checkedState[props.ckeckId]}     
-          disabled={props.isTaken}
-          onChange={() => seatBtn(props.seatData, movieData,props.ckeckId)}
-        />
-        {/* <label htmlFor={`custom-checkbox-${props.ckeckId}`}>{props.ckeckId}</label> */}
-      </div>
-{/* 測試選單按鈕 */}
+          <input
+            type="checkbox"
+            id={`custom-checkbox-${props.ckeckId}`}
+            className={seatClass}
+            checked={checkedState[props.ckeckId]}     
+            disabled={props.isTaken}
+            onChange={() => seatBtn(props.seatData, movieData, props.ckeckId)}
+          />
+        </div>
       </span>
     );
   }
@@ -370,12 +312,6 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
               </div>
               
             </div>
-            {/* <div className="row mb-3">
-      	<div className="col-1 text-center font-weight-bold">{props.rowName}</div>
-      	<div className="col-10 ofset-1">
-          	{seats}
-        </div>
-  	  </div> */}
           </div>
           
           {rows}
@@ -398,39 +334,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
         </div>
       </div>
 
-      <div className="row mt-5 d-none">
-        <div className="col-12">
-          <button onClick={()=>btnPay(payData)}>結帳</button>
-        </div>
-      </div>
-      
-      <div className="row mt-5 d-none">
-        <div className="col-12">
-          <form action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
-            {/* <input type="text" name="MerchantID" ref="MerchantID" value="MS148574761"/> */}
-            <input type="text" name="MerchantID" value="MS148574761"/>
-            {/* <input type="text" name="TradeSha" v-model="TradeSha" :ref="TradeSha"> */}
-            <input type="text" name="TradeSha" value={newebpayData.TradeSha}/>
-            {/* <input type="text" name="TradeInfo" v-model="TradeInfo" :ref="TradeInfo"> */}
-            <input type="text" name="TradeInfo" value={newebpayData.TradeInfo}/>
-            {/* <input type="text" name="TimeStamp" v-model="TimeStamp" :ref="TimeStamp"> */}
-            <input type="text" name="TimeStamp" value={newebpayData.TimeStamp}/>
-            {/* <input type="text" name="Version" value="1.5" ref="Version"> */}
-            <input type="text" name="Version" value={newebpayData.Version}/>
-            {/* <input type="text" name="MerchantOrderNo" v-model="MerchantOrderNo" :ref="MerchantOrderNo"> */}
-            <input type="text" name="MerchantOrderNo"value={newebpayData.MerchantOrderNo}/>
-            {/* <input type="text" name="Amt" v-model="Amt" :ref="Amt"> */}
-            <input type="text" name="Amt" value={payData.Amt}/>
-            {/* <input type="text" name="ItemDesc" v-model="ItemDesc" :ref="ItemDesc"> */}
-            {/* <input type="text" name="ItemDesc" value={payData.ItemDesc}/> */}
-            {/* <input type="email" name="Email" v-model="Email" :ref="Email"> */}
-            <input type="email" name="Email" value={payData.Email}/>
-            <button type="submit">送出</button>
-          </form>
-        </div>
-      </div>
     </div>    
 
   );
 }
-// export default SeatInfo;

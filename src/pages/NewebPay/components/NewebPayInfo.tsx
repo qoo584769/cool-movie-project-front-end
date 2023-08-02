@@ -26,7 +26,7 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
     createTime:'',
     createdAt:'',
     date:'',
-    position:'',
+    position:[],
     price:0,
     time:'',
     updatedAt:''
@@ -40,7 +40,6 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
       const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
       console.log(res.data.data);
       setOrderInfo(res.data.data)
-      // res.data.data.email = 'uh584697213@gmail.com'  
     })();
   }, [id]);
 
@@ -66,7 +65,7 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
                   <span className="font-weight-bold">放映時間:</span> { orderInfo.time}
                 </p>
                 <p className='d-flex justify-content-between'>
-                  <span className="font-weight-bold">座位號碼:</span> { orderInfo.position}
+                  <span className="font-weight-bold">座位號碼:</span> { orderInfo.position.join(',') }
                 </p>
                 <p className='d-flex justify-content-between '>
                   <span className="font-weight-bold">票價:</span> { orderInfo.price}
