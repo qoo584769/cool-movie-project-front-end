@@ -141,7 +141,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       time,
       screenId:`${id}`
     }
-    
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("userToken")}`
     const url = 'https://crazymovie.onrender.com'
     const res = axios.post(`${url}/api/order/createOrder`,data).then(res=>{
       setOrderData = res.data.data;
