@@ -19,7 +19,7 @@ export const Member: React.FC = () => {
     const fetchData = async () => {
       try {
         const { data: response } = await getMember();
-        console.log(response);
+        console.log('會員登入資料 : ' + response);
         
         if (response.status) {
           const { data: memberInfo } = response;
