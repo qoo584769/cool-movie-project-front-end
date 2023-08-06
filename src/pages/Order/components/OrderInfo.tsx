@@ -144,11 +144,10 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
     (async()=>{
       const url = 'https://crazymovie.onrender.com'
       const { data: response } = await getMember();
+      const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
       const { data: memberInfo } = response;
       const { email } = memberInfo;
-      const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
       console.log(res);
-      console.log('email : ',email);
       
       setOrderInfo(res.data.data);
       setPayData({
@@ -220,8 +219,8 @@ function OrderInfoEvent({ event ,payData={},btnPay }: Props) {
 
               <div className="form-floating mb-3">
                 {/* Email field */}
-                <input type ='email' name ='Email' id = 'Email' className= "form-control" value ={newebpayData.Email} onChange={emailChange}/>
-                <label htmlFor ='Email' className=''>信箱</ label>
+                <input type ='email' name ='Email' id = 'Email' className= "form-control bg-dark text-white pt-5 pb-4" value ={newebpayData.Email} onChange={emailChange}/>
+                <label htmlFor ='Email' className='floating-text text-light'>信箱</ label>
               </div>
 
               {/* <div className="form-floating mb-3">

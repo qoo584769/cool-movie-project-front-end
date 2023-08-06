@@ -66,14 +66,16 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
   }
   const handleToSeatClick = (id: any, ticketNum:any) => {
 		console.log(isLogin)
+			if(token !== null){
+				setIsLogin(true)
+			}
 			if( isLogin ){
 				// 在此處設定要跳轉的路徑
 				navigate(`/chooseSeates/${id}/${ticketNum}`);
 				return
 			}
 			else{
-					// <Login isLogin={isLogin} setIsLogin={setIsLogin}></Login>
-					setSeatPage(true)
+				setSeatPage(true)
 			}
   }
   
@@ -224,8 +226,11 @@ useEffect(() => {
 }, [dispatch])
 // -----------------------
 useEffect(() => {
-
-},[seatPage])
+	if(isLogin && seatPage){
+		setSeatPage(false)
+		window.location.reload()
+	}
+},[isLogin])
 
 // -----------------------
 

@@ -19,6 +19,8 @@ export const Member: React.FC = () => {
     const fetchData = async () => {
       try {
         const { data: response } = await getMember();
+        console.log(response);
+        
         if (response.status) {
           const { data: memberInfo } = response;
           const { birthday, email, nickName, phoneNumber, profilePic } =

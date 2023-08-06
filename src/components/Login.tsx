@@ -24,11 +24,9 @@ export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin, setSeatPage, 
 	useEffect(() => {
 		myModal.current = new bootstrap.Modal(modalRef.current as HTMLElement);
 	}, []);
-	useEffect(() => {
-		
-		if(page){
+	useEffect(() => {	
+		if(page && !isLogin){
 			openModal()
-			console.log(123)
 		}
 	}, [page]);
 
@@ -42,7 +40,7 @@ export const Login: React.FC<LoginProps> = ({ isLogin, setIsLogin, setSeatPage, 
 					<div className="modal-content modelWrap">
 						<div className="modal-body">
 							<div className="form-wrap">
-								<i className="bi bi-x" onClick={closeModal}></i>
+								<i className="bi bi-x" data-bs-dismiss="modal" onClick={closeModal}></i>
 								<div className="tabs">
 									<h6 className="login-tab">
 										<button

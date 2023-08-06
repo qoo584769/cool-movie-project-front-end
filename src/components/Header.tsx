@@ -17,10 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
 	const navigate = useNavigate()
-
-	useEffect(() => {
-
-	}, [seatPage])
+	
 	useEffect(() => {
 		const rememberMe = getCookie("remember_me");
 

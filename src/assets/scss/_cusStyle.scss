@@ -58,11 +58,6 @@
   background-size: cover;
 }
 
-// .carousel-img2{
-//   background-image:url('../img/mainimg.png');
-//   background-position: center center;
-//   background-size: cover;
-// }
 .all-img{
   background-position: center center;
   background-size: cover;
@@ -310,4 +305,8 @@ select{
 
 .z-index-100{
   z-index: 100 !important;
+}
+
+.floating-text::after{
+  background: #343a40 !important;
 }
