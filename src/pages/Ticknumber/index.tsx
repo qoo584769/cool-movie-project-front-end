@@ -3,8 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { OrderContext } from '../../store';
-import {Login} from '../../components/Login';
-import { authFetch, logoutClear, getCookie } from '../../utilities';
+import { isLoginContext } from '../../store/isLogin';
 import axios from 'axios';
 interface OrderFastProps {
 
@@ -31,9 +30,6 @@ interface Event {
 export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 	const [state, dispatch] = useContext(OrderContext);
 	const { register, handleSubmit } = useForm<TickNumberType>();
-	const [isLogin, setIsLogin] = useState(false)
-	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
-	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
 	const navigate = useNavigate()
 	const {id}= useParams();
 
@@ -58,50 +54,17 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
   
 	const [value, setValue] = useState<number>(1);
 
-	const [seatPage, setSeatPage] = useState<any>(false);
-
   const handleBackClick = (id: any) => {
       // 在此處設定要跳轉的路徑
       navigate(`/movie/${id}`);
   }
   const handleToSeatClick = (id: any, ticketNum:any) => {
-		console.log(isLogin)
-			if(token !== null){
-				setIsLogin(true)
-			}
-			if( isLogin ){
 				// 在此處設定要跳轉的路徑
 				navigate(`/chooseSeates/${id}/${ticketNum}`);
-				return
-			}
-			else{
-				setSeatPage(true)
-			}
   }
-  
-	// 加減按鈕
-	
-  // const handleValueChange = (event: { target: { value: string; }; }) => {
-  //   const newValue = parseInt(event.target.value);
-  //   if (!isNaN(newValue)) {
-  //     setValue(newValue);
-  //   }
-  // };
-
-  // const handleAddClick = () => {
-  //   setValue(value + 1);
-  // };
-
-  // const handleSubtractClick = () => {
-  //   if (value > 0) {
-  //     setValue(value - 1);
-  //   }
-  //  };
 
 	 function AddSubtractInput({ quantity }: {quantity: number}) {
 		// const [value, setValue] = useState<number>(quantity);
-		
-	
 		const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 			let newValue = parseInt(event.target.value);
 			console.log(event)
@@ -131,7 +94,7 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
 		 );
 	}
 	// 加減按鈕
-  useEffect(() => {
+  useEffect(() => {		
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
 			console.log(id);
@@ -187,70 +150,6 @@ export const Ticknumber: React.FC<OrderFastProps> = ({ }) => {
   }, [value]);
 
 // -----------------------
-useEffect(() => {
-	const rememberMe = getCookie("remember_me");
-
-	if (token) {
-		const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
-		const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
-		const currentTime = Math.floor(Date.now() / 1000);
-
-		// 如果原本的token沒過期，則繼續向後端拿資料
-		if (rememberMe && tokenExpTime > currentTime) {
-			(async function () {
-				try {
-					let response = await authFetch.get('/api/member/getUser')
-					const userName = response.data.data.nickName
-
-					dispatch({
-						type: "ADD_MEMBER_DATA",
-						payload: {
-							memberId: userId,
-							memberName: userName,
-							status: "member"
-						}
-					})
-				} catch (error) {
-					console.log('error', error);
-				}
-				setIsLogin(true)
-			}())
-		} else {
-			logoutClear(dispatch)
-			setIsLogin(false)
-		}
-	} else {
-		logoutClear(dispatch)
-		setIsLogin(false)
-	}
-}, [dispatch])
-// -----------------------
-useEffect(() => {
-	if(isLogin && seatPage){
-		setSeatPage(false)
-		window.location.reload()
-	}
-},[isLogin])
-
-// -----------------------
-
-// -----------------------
-// const handleInputChange = (index, event) => {
-// 	const values = [...tickets];
-// 	if (event.target.name === "type") {
-// 		values[index].type = event.target.value;
-// 	} else if (event.target.name === "price") {
-// 		values[index].price = parseInt(event.target.value);
-// 	} else if (event.target.name === "quantity") {
-// 		values[index].quantity = parseInt(event.target.value);
-// 	}
-// 	setTickets(values);
-// };
-
-// const handleAddTicketRowClick = () => {
-// 	 setTickets([...tickets,{ type:'', price:0, quantity:0 }]);
-//  };
-// -----------------------
 
 // -----------------------
 function SelectedEvent(props: any ) {
@@ -295,9 +194,6 @@ function SelectedEvent(props: any ) {
 					 <button type="button" className="w-100 btn btn-warning" onClick={()=>handleToSeatClick(movieData._id, value)}>
 						前往訂位
 					 </button>
-					 <div className="position-absolute" style={{top: "-100000px"}}>
-					 	<Login isLogin={isLogin} setIsLogin={setIsLogin} setSeatPage={setSeatPage} seatPage={seatPage}></Login>
-					 </div>
 				 </div>
 			</div>        
 		</div>
@@ -380,12 +276,6 @@ function SelectedEvent(props: any ) {
 														{ticketItem.price}
 													</td>              
 													<td width="200px" className='bg-dark text-white'>
-														{/* {ticketItem.quantity} */}
-														{/* <div className="input-group mb-3">
-															<button type="button" className="btn btn-outline-secondary" onClick={handleSubtractClick}>-</button>
-															<input type="number" min="0" max="9999" value={value} onChange={handleValueChange} className="form-control"/>
-															<button type="button" className="btn btn-outline-secondary" onClick={handleAddClick}>+</button>
-														</div> */}
 														<AddSubtractInput quantity = {ticketItem.quantity}/>
 													</td>
 													<td width="100px" className='bg-dark text-white'>

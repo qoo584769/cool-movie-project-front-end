@@ -14,6 +14,7 @@ export const Member: React.FC = () => {
     phoneNumber: "",
     profilePic: "",
   });
+  const [memberOrder, setMemberOrder] = useState([]);
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -24,7 +25,7 @@ export const Member: React.FC = () => {
         
         if (response.status) {
           const { data: memberInfo } = response;
-          const { birthday, email, nickName, phoneNumber, profilePic } =
+          const { birthday, email, nickName, phoneNumber, profilePic, orderId } =
             memberInfo;
           setMember({
             birthday: birthday
@@ -35,6 +36,7 @@ export const Member: React.FC = () => {
             phoneNumber: phoneNumber || "無資料",
             profilePic: profilePic || "/images/member/default_avatar.svg",
           });
+          setMemberOrder(orderId)
           return;
         }
         alert(response.message);
@@ -60,7 +62,6 @@ export const Member: React.FC = () => {
                 }}
               ></div>
               <div className="member-sidebar-user-nickname text-center">
-                jason
               </div>
               <hr className="my-2" />
               <div className="member-sidebar-user-name">
@@ -94,7 +95,7 @@ export const Member: React.FC = () => {
               </li>
             </ul>
           </div>
-          <Outlet context={{ member, setMember }}></Outlet>
+          <Outlet context={{ member, setMember, memberOrder }}></Outlet>
         </div>
       </div>
     </>

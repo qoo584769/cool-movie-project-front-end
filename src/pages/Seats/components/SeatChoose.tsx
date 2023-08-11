@@ -1,5 +1,9 @@
 import React, { useContext,useState, useEffect,useLayoutEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { OrderContext } from '../../../store';
+import { loginContext,isLoginContext } from '../../../store/isLogin';
+import {Login} from '../../../components/Login';
+import { authFetch, logoutClear, getCookie } from '../../../utilities';
 import axios from 'axios';
 
 interface SeatInfoProps {
@@ -7,10 +11,14 @@ interface SeatInfoProps {
 }
 
 export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
-  
+  const [state, dispatch] = useContext(OrderContext);
+	const [loginState, loginDispatch] = useContext(isLoginContext);
+  const loginStates:{setIsLogin?:any,isLogin?:any} = useContext(loginContext)
   const navigate = useNavigate();
   const {id, tickNumber}= useParams();
-
+  const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
+  // const [isLogin, setIsLogin] = useState(false)
+  const [seatPage, setSeatPage] = useState<any>(false);
   let [orderData, setOrderData] = useState({})
   const [seatSelectData, setSeatSelectData] = useState([])
   const [movieData, setMovieData] = useState({
@@ -57,17 +65,12 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     handlingFee: number;
   }
 
-  useEffect(() => {
+  useEffect(() => {   
+    
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
-      const url = 'https://crazymovie.onrender.com'
-    console.log(id)
-    console.log(tickNumber)
-      // const res = await axios.get(`http://127.0.0.1:3000/api/screens/${id}`)
+      const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}`)
-    console.log(res.data.data);
-    // console.log(res);
-      // setMovieData(res.data.data);
       const ticketData = {
         ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)",
         price: parseInt(`${res.data.data.theaterId.price+500+150}`),
@@ -82,9 +85,61 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
         ticketPrice: parseInt(`${tickets[0].price * tickets[0].quantity}`),
         handlingFee: 20,
       })
+      
     })();
     
   }, []);
+
+// --------------------------
+useEffect(() => {
+	const rememberMe = getCookie("remember_me");
+	if (token) {
+		const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
+		const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
+		const currentTime = Math.floor(Date.now() / 1000);
+
+		// 如果原本的token沒過期，則繼續向後端拿資料
+		if (rememberMe && tokenExpTime > currentTime) {
+			(async function () {
+				try {
+					let response = await authFetch.get('/api/member/getUser')
+					const userName = response.data.data.nickName
+
+					dispatch({
+						type: "ADD_MEMBER_DATA",
+						payload: {
+							memberId: userId,
+							memberName: userName,
+							status: "member"
+						}
+					})
+					loginDispatch({
+						type:"YES",
+						value:true
+					})
+          
+				} catch (error) {
+					console.log('error', error);
+				}
+				loginStates.setIsLogin(true)
+			}())
+		} else {
+			logoutClear(dispatch)
+			loginStates.setIsLogin(false)
+		}
+	} else {
+		logoutClear(dispatch)
+		loginStates.setIsLogin(false)
+	}
+}, [dispatch])
+// -----------------------
+useEffect(() => {
+	if(loginStates.isLogin && seatPage){
+		setSeatPage(false)
+	}
+},[loginStates.isLogin])
+// --------------------------
+
   const [pos, setPos] = useState<any>([])
   const [unoccupied, setUnoccupied] = useState(0)
   const seatBtn=(seatItem:any ={},movieData:any ={},position:any)=>{
@@ -141,12 +196,20 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
       time,
       screenId:`${id}`
     }
+			if(token !== null){
+				loginStates.setIsLogin(true)
+			}
+			if( loginStates.isLogin ){
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("userToken")}`
     const url = 'https://crazymovie.onrender.com'
     const res = axios.post(`${url}/api/order/createOrder`,data).then(res=>{
       setOrderData = res.data.data;
       navigate(`/order/${res.data.data._id}`);
     })
+    }
+			else{
+				setSeatPage(true)
+			}
   }
   // 票券頁面右邊的顯示選擇資訊
   // ------------------------------------
@@ -192,6 +255,9 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
         	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData, time)}>
            	 前往訂位
            	</button>
+             <div className="position-absolute" style={{top: "-100000px"}}>
+                <Login isLogin={loginStates.isLogin} setIsLogin={loginStates.setIsLogin} setSeatPage={setSeatPage} seatPage={seatPage}></Login>
+              </div>
            </div>
         </div>        
       </div>

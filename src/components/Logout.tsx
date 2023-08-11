@@ -1,5 +1,6 @@
 import React, { useContext, useState, Dispatch, SetStateAction } from 'react'
 import { OrderContext } from '../store'
+import { isLoginContext } from '../store/isLogin';
 import { useNavigate } from 'react-router-dom';
 
 interface LogoutProps {
@@ -9,6 +10,7 @@ interface LogoutProps {
 
 export const Logout: React.FC<LogoutProps> = ({ isLogin, setIsLogin }) => {
 	const [state, dispatch] = useContext(OrderContext);
+	const [loginState, loginDispatch] = useContext(isLoginContext);
 	const navigate = useNavigate()
 
 	const clickHandler = () => {
@@ -23,6 +25,10 @@ export const Logout: React.FC<LogoutProps> = ({ isLogin, setIsLogin }) => {
 					status: "quick",
 					memberName: "",
 				}
+			})
+			loginDispatch({
+				type:"NO",
+				value:false
 			})
 			navigate("/")
 		}

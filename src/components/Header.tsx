@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext, MouseEvent } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { OrderContext } from '../store'
+import { loginContext, isLoginContext } from '../store/isLogin';
 import { Login, Logout } from './';
 import { authFetch, logoutClear, getCookie } from '../utilities';
 
@@ -12,15 +13,15 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ }) => {
 	const [state, dispatch] = useContext(OrderContext);
-	const [isLogin, setIsLogin] = useState(false)
+	const [loginState, loginDispatch] = useContext(isLoginContext);
+	const loginStates:{setIsLogin?:any,isLogin?:any} = useContext(loginContext);
 	const [seatPage, setSeatPage] = useState<any>(false);
 	const memberName = (state.orderList.memberName) ? (state.orderList.memberName) : ""
 	const token = (localStorage.getItem("userToken")) ? localStorage.getItem("userToken") : null
 	const navigate = useNavigate()
 	
 	useEffect(() => {
-		const rememberMe = getCookie("remember_me");
-
+		const rememberMe = getCookie("remember_me");		
 		if (token) {
 			const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
 			const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
@@ -41,18 +42,22 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 								status: "member"
 							}
 						})
+						loginDispatch({
+							type:"YES",
+							value:true
+						})
 					} catch (error) {
 						console.log('error', error);
 					}
-					setIsLogin(true)
+					loginStates.setIsLogin(true)
 				}())
 			} else {
 				logoutClear(dispatch)
-				setIsLogin(false)
+				loginStates.setIsLogin(false)
 			}
 		} else {
 			logoutClear(dispatch)
-			setIsLogin(false)
+			loginStates.setIsLogin(false)
 		}
 	}, [dispatch])
 
@@ -67,18 +72,18 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
 						<NavLink to={`/benifet`}><li>好康優惠</li></NavLink>
 						<NavLink to={`/aboutus`}><li>關於影城</li></NavLink>
 					</ul> */}
-					{isLogin ? (
+					{loginStates.isLogin ? (
 						<div className='loginNav'>
-							<NavLink className="nav-link navLink" to={`/member`}>
-								<i className=" bi-person-circle btn-outline-warning" ></i>
+							<NavLink className="nav-link navLink " to={`/member`}>
+								<i className=" bi-person-circle btn-outline-warning"></i>
+								<span className='mx-2'>{memberName} 您好</span>
 							</NavLink>
-							<span className='me-2'>{memberName} 您好</span>
-							<Logout isLogin={isLogin} setIsLogin={setIsLogin} />
+							<Logout isLogin={loginStates.isLogin} setIsLogin={loginStates.setIsLogin} />
 						</div>
 					) : (
 						<Login
-							isLogin={isLogin}
-							setIsLogin={setIsLogin}
+							isLogin={loginStates.isLogin}
+							setIsLogin={loginStates.setIsLogin}
 							setSeatPage={setSeatPage}
 							seatPage={false}
 						/>

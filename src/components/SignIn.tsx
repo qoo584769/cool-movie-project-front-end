@@ -1,5 +1,6 @@
 import React, { useState,useEffect, MutableRefObject, Dispatch, SetStateAction, useContext } from 'react'
 import { OrderContext } from '../store';
+import { loginContext,isLoginContext } from '../store/isLogin';
 import { useForm, useWatch } from "react-hook-form"
 import { authFetch,getCookie } from '../utilities';
 import { Loading, ErrorMsg } from './';
@@ -20,6 +21,8 @@ export interface SignInType {
 
 export const SingIn: React.FC<LoginPropsType> = ({ myModal, setIsLogin }) => {
 	const [state, dispatch] = useContext(OrderContext);
+	const [loginState, loginDispatch] = useContext(isLoginContext);
+	const loginStates:{setIsLogin?:any,isLogin?:any} = useContext(loginContext);
 	const [errMsg, setErrMsg] = useState<string>()
 	const [loading, setloading] = useState(false)
 	const { register, handleSubmit, control, getValues, setError, formState: { errors } } = useForm<SignInType>({
@@ -62,6 +65,12 @@ useEffect(()=>{
 						status: "member"
 					}
 				})
+				loginDispatch({
+					type:"YES",
+					value:true
+				})			
+				loginStates.setIsLogin(localStorage.getItem("userToken"))				
+
 				myModal.current?.hide();
 				setloading(false)
 				setIsLogin(true)

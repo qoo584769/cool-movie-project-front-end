@@ -1,6 +1,7 @@
-import React, { useReducer,useState,useEffect } from 'react';
+import React, { useReducer, useContext, useState, useEffect} from 'react';
 import { Route, Routes, useRoutes } from 'react-router-dom';
 import { OrderContext, OrderInitialState, OrderReducer } from './store';
+import { loginContext, isLoginContext, isLoginInitialState, isLoginReducer } from './store/isLogin';
 import { ThemeProvider } from 'styled-components';
 import { Header } from './components';
 import { Footer } from './components';
@@ -16,8 +17,6 @@ const GetMovieData= ({children}:any) => {
   useEffect(() => {
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
-
-      // await axios.get('http://127.0.0.1:3000/api/movie')
       await axios.get(`${url}/api/movie`)
       .then(res => {
         setData(res.data.data.data)
@@ -36,15 +35,14 @@ const GetMovieData= ({children}:any) => {
 
 function App() {
   const reducer = useReducer(OrderReducer, OrderInitialState);
+  const loginReducer = useReducer(isLoginReducer, isLoginInitialState);
   const routing = useRoutes(routes);
-  const url = 'https://crazymovie.onrender.com'
   const [data, setData] = useState<any>([]);
+  const [isLogin, setIsLogin] = useState(false)
+  const url = process.env.REACT_APP_REMOTE_URL
   useEffect(() => {
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
-      console.log(url);
-      
-      // await axios.get('http://127.0.0.1:3000/api/movie')
       await axios.get(`${url}/api/movie`)
       .then(res => {
         setData(res.data.data.data)
@@ -52,15 +50,23 @@ function App() {
       .catch(error => console.log(error));
     })();
   }, []);
+  useEffect(() => {
+  }, [isLogin]);
   return (
     <OrderContext.Provider value={reducer}>
-      <MovieContext.Provider value={data}>
-        <ThemeProvider theme={{}}>
-          <Header />
-          {routing}
-          <Footer />
-        </ThemeProvider>
-      </MovieContext.Provider>
+      <isLoginContext.Provider value={loginReducer}>
+        <MovieContext.Provider value={data}>
+        <loginContext.Provider value = {{isLogin,setIsLogin}}>
+
+          <ThemeProvider theme={{}}>
+            <Header />
+            {routing}
+            <Footer />
+          </ThemeProvider>
+
+        </loginContext.Provider>
+        </MovieContext.Provider>
+      </isLoginContext.Provider>
     </OrderContext.Provider>
   );
 }
