@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
+import { Loading } from "../../../components";
 import axios from 'axios';
 
 interface PaymentInfoProps {
@@ -20,6 +21,7 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
 }) => {
   const {id}= useParams();
 
+  const [isLoading, setLoading] = useState(false);
   const [orderInfo, setOrderInfo] = useState({
     _id:'',
     ItemDesc:'',
@@ -31,15 +33,15 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
     time:'',
     updatedAt:''
   })
+
   useEffect(() => {
-    console.log('付款返回',id);
+    setLoading(true);
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
-      const url = 'https://crazymovie.onrender.com'
-      // const res = await axios.get(`http://127.0.0.1:3000/api/order/getOrder?orderId=${id}`)
+      const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/order/getOrder?orderId=${id}`)
-      console.log(res.data.data);
       setOrderInfo(res.data.data)
+      setLoading(false)
     })();
   }, [id]);
 
@@ -50,6 +52,7 @@ const NewebPayInfo: React.FC<PaymentInfoProps> = ({
   };
   return (
     <>
+      <Loading isActive={isLoading}></Loading>
       <div className="container my-5">
       <div className="row justify-content-center">
         <div className="col-md-5 ">

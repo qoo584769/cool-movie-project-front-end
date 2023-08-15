@@ -1,5 +1,6 @@
 import React, { useContext,useState, useEffect,useLayoutEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom"
+import { Loading } from "../../components";
 import axios from 'axios';
 
 const MovieDetailHeader = () => {
@@ -18,6 +19,7 @@ const DetailInfo = () => {
 
   // const data = useContext(DataContext);
   const {id}= useParams();
+  const [isLoading, setLoading] = useState(false);
   const [movieData, setMovieData] = useState<any[]>([]);
   const [movieTimeData, setMovieTimeData] = useState([]);
   
@@ -28,47 +30,22 @@ const DetailInfo = () => {
       // 在此處設定要跳轉的路徑
       navigate(`/ticknumber/${id}`);
   }
-  // };
+  // }
   
-  const apiData = async ()=>{
-    const res = await axios.get(`http://127.0.0.1:3000/api/screens/${id}/playDate`)
-    console.log(res.data.data);
-      setMovieData(res.data.data);  
-    // -----------------
-    const movieRes = await axios.get(`http://127.0.0.1:3000/api/screens?movieId=${id}&&type=${movieData[0]?.screen.type}&&startDate=${movieData[0]?.screen.startDate}&&name=${movieData[0]?.screen.movieId.name}`)
-    console.log('movieData',movieRes);
-    
-  }
   
   useEffect(() => {
-    // 在組件加載完成後發送 GET 請求獲取數據
-  //   axios.get(`http://127.0.0.1:3000/api/screens/${id}/playDate`)
-  //     .then(res => {
-  //       setMovieData(res);
-  //       console.log(res)
-  // console.log(movieData);
-        
-  //     })
-  //     .catch(error => console.log(error));
+    setLoading(true);
     (async()=>{
-      const url = 'https://crazymovie.onrender.com'
-      // const res = await axios.get(`http://127.0.0.1:3000/api/screens/${id}/playDate`)
+      const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}/playDate`)
-    console.log(res.data.data);
       setMovieData(res.data.data);
-    //   const movieRes =  await axios.get(`http://127.0.0.1:3000/api/screens?movieId=${id}&type=${movieData[0]?.screen.type}&startDate=${movieData[0]?.screen.startDate}&name=${movieData[0]?.screen.movieId.name}`)
-    // console.log('movieData',movieRes);
-    //   console.log('movieData',movieRes);
-    })();
-    // apiData();
-    
+      setLoading(false);
+    })();    
   }, []);
   
   return (
     <>
-      {/* {movieData.map((item,index)=>{
-        return (<div key="item.screen._id">{item.formattedDate}</div>)
-      })} */}
+      <Loading isActive={isLoading}></Loading>
       <div className="container position-relative">   
         <div className="row position-absolu position-80">
           <div className="col-md-4 mb-3">
@@ -80,8 +57,6 @@ const DetailInfo = () => {
                   {
                     movieData[0]?<span className="">{new Date(movieData[0]?.screen.movieId.releaseData).toISOString().split('T')[0]}</span>:<span className="">{movieData[0]?.screen.movieId.releaseData}</span>
                   }
-                  {/* <span className="">{new Date(movieData[0]?.screen.movieId.releaseData).toISOString().split('T')[0]}</span> */}
-                  {/* <span className="">{movieData[0]?.screen.movieId.releaseData}</span> */}
                 </h5>
                 <h5 className="card-title d-flex justify-content-between">
                   <span className="">導演:</span>
@@ -110,10 +85,6 @@ const DetailInfo = () => {
               <div className="">
                 線上訂票
               </div>
-              {/* <div className="">
-                <a href="#" className="">XL 100 席皇家廳</a>
-                <a href="#" className="">L 50 席豪華廳</a>
-              </div> */}
             </div>
             <div className="bg-liner my-4"></div>
             <ul className="list-group list-group-flush">
@@ -129,24 +100,7 @@ const DetailInfo = () => {
                    </li>
                  )
               })}
-              
-              {/* <li className="list-group-item">
-                <div className="">3/19 (日)</div>
-                <div className="">
-                  <button type="button" className="btn btn-outline-warning me-3">14:00</button>
-                  <button type="button" className="btn btn-outline-warning me-3">16:00</button>
-                  <button type="button" className="btn btn-outline-warning me-3">19:00</button>
-                </div>
-              </li>   */}
             </ul>
-            {/* <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <div className="">3/20 (一)</div>
-                <div className="">
-                  <button type="button" className="btn btn-outline-warning me-3">14:00</button>
-                </div>
-              </li>  
-            </ul> */}
           </div>
         </div>
       </div>
@@ -157,10 +111,8 @@ const DetailInfo = () => {
 export const MovieDetail = () => {
   return (
    <>
-    {/* <GetData> */}
     <MovieDetailHeader />
     <DetailInfo />
-    {/* </GetData> */}
    </>
   );
 };

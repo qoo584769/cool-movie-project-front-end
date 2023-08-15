@@ -27,16 +27,6 @@ export const Home: React.FC<HomeProps> = ({ }) => {
 	const [loading, setloading] = useState(false)
 
 	useEffect(() => {
-		// (async function () {
-		// 	setloading(true)
-		// 	try {
-		// 		let response = await axios.get(`${api}?client_id=${accessKey}&query=movie poster&page=1&per_page=3`);
-		// 		const { results } = response.data
-		// 		setList(results)
-		// 		setloading(false)
-		// 	} catch (error) {
-		// 	}
-		// }())
 	}, [])
 
 	return (

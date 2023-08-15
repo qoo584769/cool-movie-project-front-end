@@ -14,19 +14,6 @@ export const HomeReleased = () => {
   useEffect(()=>{
     setMovieData(data)
   },[data])
-  // useEffect(() => {
-    // 在組件加載完成後發送 GET 請求獲取數據
-  //   (async()=>{
-  //     await axios.get('http://127.0.0.1:3000/api/movie')
-  //     .then(res => {
-  //       setMovieData(res.data.data.data)
-  //     })
-  //     .catch(error => console.log(error));
-  //   })();
-  // }, []);
-  // useEffect(()=>{
-  //   console.log(movieData);
-  // },[movieData])
   // ---------------------
   // ---------------------
 

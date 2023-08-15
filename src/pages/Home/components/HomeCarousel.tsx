@@ -11,7 +11,7 @@ import LeftArrow from "/images/leftArrow.png"
 import RightArrow from "/images/rightArrow.png"
 
 const MovieBooking: React.FC = () => {
-  const url = 'https://crazymovie.onrender.com'
+  const url = process.env.REACT_APP_REMOTE_URL
   const MovieContextData = useContext(MovieContext);
   const navigate = useNavigate();
   const [loading, setloading] = useState(false)

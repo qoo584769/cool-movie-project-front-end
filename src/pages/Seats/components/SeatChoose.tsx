@@ -23,7 +23,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   const [seatSelectData, setSeatSelectData] = useState([])
   const [movieData, setMovieData] = useState({
     _id:'',
-    movieId:{},
+    movieId:{name:''},
     seatsStatus:[{ seat_id: "", is_booked: false }],
     startDate:'',
     theaterId:{}
@@ -65,80 +65,76 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     handlingFee: number;
   }
 
-  useEffect(() => {   
-    
+  useEffect(() => {       
     // 在組件加載完成後發送 GET 請求獲取數據
     (async()=>{
       const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}`)
-      const ticketData = {
+      const ticketData = [{
         ticketType: "全票套餐票(1張影票+500元套餐&150飲料X1)",
         price: parseInt(`${res.data.data.theaterId.price+500+150}`),
         quantity: parseInt(`${tickNumber}`)
-      };
+      }];
+      setTickets(ticketData);
       setMovieData(res.data.data);
-      setTickets([ticketData]);
       setEvent({
         date: `${new Date(res.data.data?.startDate).toISOString().split('T')[0]}`,
         time: `${new Date(res.data.data?.startDate).toISOString().split('T')[1].substr(0, 5)}`,
         movieTitle:`${res.data.data?.movieId.name}`,
-        ticketPrice: parseInt(`${tickets[0].price * tickets[0].quantity}`),
+        ticketPrice: parseInt(`${ticketData[0].price * ticketData[0].quantity}`),
         handlingFee: 20,
-      })
-      
-    })();
-    
+      })      
+    })();    
   }, []);
+  // --------------------------
+  useEffect(() => {
+    const rememberMe = getCookie("remember_me");
+    if (token) {
+      const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
+      const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
+      const currentTime = Math.floor(Date.now() / 1000);
 
-// --------------------------
-useEffect(() => {
-	const rememberMe = getCookie("remember_me");
-	if (token) {
-		const tokenExpTime = JSON.parse(atob(token?.split(".")[1] || "")).exp;
-		const userId = JSON.parse(atob(token?.split(".")[1] || "")).id
-		const currentTime = Math.floor(Date.now() / 1000);
+      // 如果原本的token沒過期，則繼續向後端拿資料
+      if (rememberMe && tokenExpTime > currentTime) {
+        (async function () {
+          try {
+            let response = await authFetch.get('/api/member/getUser')
+            const userName = response.data.data.nickName
 
-		// 如果原本的token沒過期，則繼續向後端拿資料
-		if (rememberMe && tokenExpTime > currentTime) {
-			(async function () {
-				try {
-					let response = await authFetch.get('/api/member/getUser')
-					const userName = response.data.data.nickName
-
-					dispatch({
-						type: "ADD_MEMBER_DATA",
-						payload: {
-							memberId: userId,
-							memberName: userName,
-							status: "member"
-						}
-					})
-					loginDispatch({
-						type:"YES",
-						value:true
-					})
-          
-				} catch (error) {
-					console.log('error', error);
-				}
-				loginStates.setIsLogin(true)
-			}())
-		} else {
-			logoutClear(dispatch)
-			loginStates.setIsLogin(false)
-		}
-	} else {
-		logoutClear(dispatch)
-		loginStates.setIsLogin(false)
-	}
-}, [dispatch])
-// -----------------------
-useEffect(() => {
-	if(loginStates.isLogin && seatPage){
-		setSeatPage(false)
-	}
-},[loginStates.isLogin])
-// --------------------------
+            dispatch({
+              type: "ADD_MEMBER_DATA",
+              payload: {
+                memberId: userId,
+                memberName: userName,
+                status: "member"
+              }
+            })
+            loginDispatch({
+              type:"YES",
+              value:true
+            })
+            
+          } catch (error) {
+            console.log('error', error);
+          }
+          loginStates.setIsLogin(true)
+        }())
+      } else {
+        logoutClear(dispatch)
+        loginStates.setIsLogin(false)
+      }
+    } else {
+      logoutClear(dispatch)
+      loginStates.setIsLogin(false)
+    }
+  }, [dispatch])
+  // -----------------------
+  useEffect(() => {
+    if(loginStates.isLogin && seatPage){
+      setSeatPage(false)
+    }
+  },[loginStates.isLogin])
+  // --------------------------
 
   const [pos, setPos] = useState<any>([])
   const [unoccupied, setUnoccupied] = useState(0)
@@ -201,7 +197,7 @@ useEffect(() => {
 			}
 			if( loginStates.isLogin ){
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("userToken")}`
-    const url = 'https://crazymovie.onrender.com'
+    const url = process.env.REACT_APP_REMOTE_URL
     const res = axios.post(`${url}/api/order/createOrder`,data).then(res=>{
       setOrderData = res.data.data;
       navigate(`/order/${res.data.data._id}`);
@@ -211,6 +207,12 @@ useEffect(() => {
 				setSeatPage(true)
 			}
   }
+
+  const handleBackClick = (id: any) => {
+    // 在此處設定要跳轉的路徑
+    navigate(`/ticknumber/${id}`);
+  }
+
   // 票券頁面右邊的顯示選擇資訊
   // ------------------------------------
   function SelectedEvent( {selectEvent}:{ selectEvent: SelectEvent } ) {
@@ -246,12 +248,12 @@ useEffect(() => {
          </div>
 
          <div className="row my-4">  
-           {/* <div className="col-6">
-             <button type="button" className="w-100 btn btn-outline-warning">
-               重新選票
+           <div className="col-6">
+             <button type="button" className="w-100 btn btn-outline-warning" onClick={()=>handleBackClick(id)}>
+               重選數量
              </button>
-           </div> */}
-           <div className="col-12">
+           </div>
+           <div className="col-6">
         	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData, time)}>
            	 前往訂位
            	</button>
@@ -270,7 +272,7 @@ useEffect(() => {
   function Seat(props:any) {
     const seatClass = props.isTaken ? "seat taken" : "seat available";
     return (
-      <span className="me-3">
+      <span className="">
         <div className="d-inline-block checkbox-circle">
           <input
             type="checkbox"
@@ -287,7 +289,6 @@ useEffect(() => {
 
   function SeatRow(props:any) {
     const seats = [];
-    console.log(`275行 : ${movieData ? movieData.seatsStatus[0] : 'no data'}`);
     for (let i = props.rowStart; i <= props.rowEnd; i++) {
       seats.push(
         <Seat key={i} seatNumber={i} isTaken={props.takenSeats.includes(i)} movieData = {movieData} seatData={props.rowNum?.seatsStatus[i-1]} ckeckId={i}/>
@@ -297,7 +298,7 @@ useEffect(() => {
     return (
       <div className="row mb-3">
       	<div className="col-1 text-center font-weight-bold">{props.rowName}</div>
-      	<div className="col-10 ofset-1">
+      	<div className="col-10 ofset-1 d-flex justify-content-between">
           	{seats}
         </div>
   	  </div>
@@ -308,19 +309,23 @@ useEffect(() => {
   // 座位表預設
   // ------------------------------------
   // 假設已有被預定的位置
-  //  const takenSeats = [4,5,12];
    const takenSeats = movieData.seatsStatus.filter((item,ind)=>item.is_booked).map((item,ind)=> ind + 1);
 
    // 計算每排開始、結束的位置及該排是否需要留空
    const rowsConfig = [
-     { name: 'A', start:1, end:14 },
-     { name: 'B', start:15, end:28 },
-     { name: 'C', start:29, end:42 },
-     { name: 'D', start:43, end:56 },
-     { name: 'E', start:57, end:70 },
-     { name: 'F', start:71, end:84 },
-     { name: 'G', start:85, end:98 },
-     { name: 'H', start:99, end:112 }
+     { name: 'A', start:1, end:10 },
+     { name: 'B', start:11, end:20 },
+     { name: 'C', start:21, end:30 },
+     { name: 'D', start:31, end:40 },
+     { name: 'E', start:41, end:50 },
+     { name: 'F', start:51, end:60 },
+     { name: 'G', start:61, end:70 },
+     { name: 'H', start:71, end:80 },
+     { name: 'I', start:81, end:90 },
+     { name: 'J', start:91, end:100 },
+     { name: 'K', start:101, end:110 },
+     { name: 'L', start:111, end:120 },
+     { name: 'M', start:121, end:130 }
    ];
 
 	const rows = rowsConfig.map((rowConfig,index) => {
@@ -366,22 +371,15 @@ useEffect(() => {
         {/* 選擇數量 */}
         <div className="col-12 col-md-8 ckeckbox">
 
-          <div className="row">
+          <div className="row mb-3 ">
             <div className="col-1"></div>
-            <div className="col-10 ofset-1">
-            
-              <div className="d-flex align-items-center ustify-content-center mb-3 ">
-                <span className="font-weight-bold me-2"> </span> {/* 空一格，讓數字對齊 */}
-                {[...Array(14)].map((_, i) => ( /* 建立1~14的陣列 */
-                  <span key={i} className="mr-20 text-center">{i+1}</span>
+            <div className="col-10 ofset-1 d-flex justify-content-between">
+                {[...Array(10)].map((_, i) => ( /* 建立1~10的陣列 */
+                  <span key={i} className="text-center seat">{i+1}</span>
                 ))}
-              </div>
-              
             </div>
           </div>
-          
           {rows}
-          
         </div>
         {/* 選擇數量結束 */}
         <div className="col-12 col-md-4">

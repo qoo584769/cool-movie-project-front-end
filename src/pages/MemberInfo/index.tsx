@@ -197,30 +197,7 @@ export const MemberInfo: React.FC = () => {
                 {...register("phoneNumber", { required: false })}
               />
             </div>
-            <div className="mb-2">
-              <label htmlFor="email" className="mb-2">
-                email
-              </label>
-              <input
-                id="email"
-                type="text"
-                className="input"
-                autoComplete="off"
-                placeholder="請輸入信箱"
-                {...register("email", {
-                  required: "請輸入信箱",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "請輸入正確的信箱格式",
-                  },
-                })}
-              />
-              {errors.email && (
-                <span className="member-form-error">
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
+            
             <input
               type="submit"
               className="button align-self-end"

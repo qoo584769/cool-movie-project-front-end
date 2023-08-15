@@ -19,10 +19,7 @@ export const Member: React.FC = () => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const { data: response } = await getMember();
-        console.log('會員登入資料 : ');
-        console.log(response);
-        
+        const { data: response } = await getMember();        
         if (response.status) {
           const { data: memberInfo } = response;
           const { birthday, email, nickName, phoneNumber, profilePic, orderId } =

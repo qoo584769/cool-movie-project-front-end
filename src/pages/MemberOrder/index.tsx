@@ -90,14 +90,14 @@ export const MemberOrder: React.FC = ({}) => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const ticketsPerPage = 2;
+  const ticketsPerPage = 10;
 
   const indexOfLastTicket = currentPage * ticketsPerPage;
   const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
 
-  const currentTickets = defaultOrder.slice(indexOfFirstTicket, indexOfLastTicket);
+  const currentTickets = memberOrder.slice(indexOfFirstTicket, indexOfLastTicket);
 
-  const totalPages = Math.ceil(defaultOrder.length / ticketsPerPage);
+  const totalPages = Math.ceil(memberOrder.length / ticketsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
