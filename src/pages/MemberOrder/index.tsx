@@ -8,79 +8,9 @@ interface order {
   date: string;
   time: string;
   position: string[];
+  price:string;
 }
-const defaultOrder : order[] = [
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-  {
-    _id: '64d0ec2b0af441bfa333fae1',
-    ItemDesc: '離不開你的依賴',
-    date: '2023-08-21',
-    time: '07:00',
-    position: ['A1'],
-  },
-]
+
 export const MemberOrder: React.FC = ({}) => {
   const { memberOrder } = useOutletContext<any>();
   
@@ -187,6 +117,7 @@ export const MemberOrder: React.FC = ({}) => {
               <>日期：</> {order.date}<br />
               <>時間：</> {order.time}<br />
               <>位置：</> {order.position.join(',')}
+              <>金額：</> {order.price}
             </li>
           ))}
           </ul>

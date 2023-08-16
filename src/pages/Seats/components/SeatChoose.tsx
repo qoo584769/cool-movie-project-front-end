@@ -184,11 +184,12 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     }
   }
   
-  const payBtn = (movieData:any,time:any)=>{
+  const payBtn = (movieData:any,time:any,totalPrice:any)=>{
     const data = {
       ItemDesc:movieData.movieId.name, 
       date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`, position:seatSelectData,
-      price:movieData.theaterId.price, 
+      // price:movieData.theaterId.price, 
+      price:totalPrice, 
       time,
       screenId:`${id}`
     }
@@ -254,7 +255,7 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
              </button>
            </div>
            <div className="col-6">
-        	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData, time)}>
+        	   <button type="button" className="w-100 btn btn-warning" onClick={()=>payBtn(movieData, time, total)}>
            	 前往訂位
            	</button>
              <div className="position-absolute" style={{top: "-100000px"}}>
