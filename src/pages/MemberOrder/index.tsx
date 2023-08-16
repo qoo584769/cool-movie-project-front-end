@@ -116,7 +116,7 @@ export const MemberOrder: React.FC = ({}) => {
               <>電影：</> {order.ItemDesc}<br />
               <>日期：</> {order.date}<br />
               <>時間：</> {order.time}<br />
-              <>位置：</> {order.position.join(',')}
+              <>位置：</> {order.position.join(',')}<br />
               <>金額：</> {order.price}
             </li>
           ))}

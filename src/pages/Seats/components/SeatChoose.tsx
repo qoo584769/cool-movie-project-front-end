@@ -188,7 +188,6 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
     const data = {
       ItemDesc:movieData.movieId.name, 
       date:`${new Date(movieData?.startDate).toISOString().split('T')[0]}`, position:seatSelectData,
-      // price:movieData.theaterId.price, 
       price:totalPrice, 
       time,
       screenId:`${id}`
