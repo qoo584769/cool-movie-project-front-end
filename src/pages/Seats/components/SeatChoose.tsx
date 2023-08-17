@@ -309,7 +309,12 @@ export const SeatInfo: React.FC<SeatInfoProps> = ({ }) => {
   // 座位表預設
   // ------------------------------------
   // 假設已有被預定的位置
-   const takenSeats = movieData.seatsStatus.filter((item,ind)=>item.is_booked).map((item,ind)=> ind + 1);
+  //  const takenSeats = movieData.seatsStatus.filter((item,ind)=>item.is_booked).map((item,ind)=> ind + 1);
+   const takenSeats = movieData.seatsStatus.map((item,ind) => {
+    if(item.is_booked){
+      return ind + 1
+    }
+   });
 
    // 計算每排開始、結束的位置及該排是否需要留空
    const rowsConfig = [
