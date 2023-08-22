@@ -21,6 +21,7 @@ const DetailInfo = () => {
   const {id}= useParams();
   const [isLoading, setLoading] = useState(false);
   const [movieData, setMovieData] = useState<any[]>([]);
+  const [indexArr, setIndexArr] = useState<any[]>([]);
   const [movieTimeData, setMovieTimeData] = useState([]);
   
   // const selectTimeButton = () => {
@@ -38,7 +39,20 @@ const DetailInfo = () => {
     (async()=>{
       const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}/playDate`)
-      setMovieData(res.data.data);
+
+      const filterData = res.data.data.sort((a:any, b:any) => a.screenstartDate.localeCompare(b.screen.startDate, 'zh-TW'))
+      const indexArray:any[] = []
+      filterData.forEach((item:any, index:any, arr:any) => {
+        if (index === 0) {
+          indexArray.push(index)
+        } else if (new Date(item.startDate).toISOString().split('T')[0] !== new Date(arr[index - 1].startDate).toISOString().split('T')[0]) {
+          indexArray.push(index)
+        }
+      })
+
+      // setMovieData(res.data.data);
+      setIndexArr(indexArray)
+      setMovieData(filterData);
       setLoading(false);
     })();    
   }, []);
@@ -93,7 +107,7 @@ const DetailInfo = () => {
                  return (
                    <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 ps-0">
                    {/* <div key="item.screen._id">{item.formattedDate}</div> */}
-                   <div className="mb-3">{item.formattedDate}</div>
+                   <div className={`mb-3 ${indexArr.includes(index)? 'visable' :'invisible'}`}>{new Date(item.screen.startDate).toISOString().split('T')[0]}</div>
                   <div className="">
                   <button type="button" className="btn btn-outline-warning me-3" onClick={()=>handleClick(item.screen._id)}>{new Date(item.screen.startDate).toISOString().split('T')[1].substr(0, 5)}</button>
                   </div>
