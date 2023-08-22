@@ -40,7 +40,7 @@ const DetailInfo = () => {
       const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}/playDate`)
 
-      const filterData = res.data.data.sort((a:any, b:any) => a.screenstartDate.localeCompare(b.screen.startDate, 'zh-TW'))
+      const filterData = res.data.data.sort((a:any, b:any) => a.screen.startDate.localeCompare(b.screen.startDate, 'zh-TW'))
       const indexArray:any[] = []
       filterData.forEach((item:any, index:any, arr:any) => {
         if (index === 0) {
