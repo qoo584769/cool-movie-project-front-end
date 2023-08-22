@@ -24,22 +24,18 @@ const DetailInfo = () => {
   const [indexArr, setIndexArr] = useState<any[]>([]);
   const [movieTimeData, setMovieTimeData] = useState([]);
   
-  // const selectTimeButton = () => {
     const navigate = useNavigate();
   
     const handleClick = (id: any) => {
       // 在此處設定要跳轉的路徑
       navigate(`/ticknumber/${id}`);
-  }
-  // }
-  
+  }  
   
   useEffect(() => {
     setLoading(true);
     (async()=>{
       const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}/playDate`)
-
       setMovieData(res.data.data);
       setLoading(false);
     })();    
@@ -47,16 +43,16 @@ const DetailInfo = () => {
 
   useEffect(()=>{
     const filterData = movieData.sort((a:any, b:any) => a.screen.startDate.localeCompare(b.screen.startDate, 'zh-TW'))
-      const indexArray:any[] = []
-      filterData.forEach((item:any, index:any, arr:any) => {
-        if (index === 0) {
-          indexArray.push(index)
-        } else if (new Date(item.startDate).toISOString().split('T')[0] !== new Date(arr[index - 1].startDate).toISOString().split('T')[0]) {
-          indexArray.push(index)
-        }
-      })
 
-      setIndexArr(indexArray)
+    const indexArray:any[] = []
+    filterData.forEach((item:any, index:any, arr:any) => {
+      if (index === 0) {
+        indexArray.push(index)
+      } else if (new Date(item.screen.startDate).toISOString().split('T')[0] !== new Date(arr[index - 1].screen.startDate).toISOString().split('T')[0]) {
+        indexArray.push(index)
+      }
+    })
+    setIndexArr(indexArray)    
   },[movieData])
 
   return (
@@ -68,19 +64,19 @@ const DetailInfo = () => {
             <div className="card bg-dark">
               <img src={movieData[0]?.screen.movieId.imgs[0]} className="card-img-top" alt="Image 1" />
               <div className="card-body px-0 pb-0 text-white">
-                <h5 className="card-title d-flex justify-content-between">
+                <h5 className="card-title d-flex justify-content-between px-4">
                   <span className="">上映日期:</span>
                   {
                     movieData[0]?<span className="">{new Date(movieData[0]?.screen.movieId.releaseData).toISOString().split('T')[0]}</span>:<span className="">{movieData[0]?.screen.movieId.releaseData}</span>
                   }
                 </h5>
-                <h5 className="card-title d-flex justify-content-between">
+                <h5 className="card-title d-flex justify-content-between px-4">
                   <span className="">導演:</span>
                   <span className="">{movieData[0]?.screen.movieId.director}</span>
                 </h5>
-                <h5 className="card-title d-flex justify-content-between">
-                  <span className="w-50">演員:</span>
-                  <span className="text-end">柴克萊威、海倫米蘭、瑞秋曾格勒、亞當布洛迪</span>
+                <h5 className="card-title d-flex justify-content-between px-4">
+                  <span className="w-100">演員:</span>
+                  <span className="">{movieData[0]?.screen.movieId.actors.join(',')}</span>
                 </h5>
                 <p className="card-text p-4">{movieData[0]?.screen.movieId.desc}</p>
               </div>
@@ -103,17 +99,25 @@ const DetailInfo = () => {
               </div>
             </div>
             <div className="bg-liner my-4"></div>
-            <ul className="list-group list-group-flush row">
-
+            <ul className="list-group list-group-flush flex-row row">
               {movieData.map((item,index)=>{
                  return (
-                   <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 col-3">
-                   {/* <div key="item.screen._id">{item.formattedDate}</div> */}
-                   <div className={`mb-3 ${indexArr.includes(index)? 'visable' :'invisible'}`}>{new Date(item.screen.startDate).toISOString().split('T')[0]}</div>
-                  <div className="">
-                  <button type="button" className="btn btn-outline-warning me-3" onClick={()=>handleClick(item.screen._id)}>{new Date(item.screen.startDate).toISOString().split('T')[1].substr(0, 5)}</button>
-                  </div>
+                  <>
+                   <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 col-4 col-md-2">
+                    <div className={`mb-3 ${indexArr.includes(index)? 'visable' :'invisible'}`}>
+                      {new Date(item.screen.startDate).toISOString().split('T')[0]}
+                    </div>
+                    <div className="">
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-warning me-3" 
+                        onClick={()=>handleClick(item.screen._id)}>
+                        {new Date(item.screen.startDate).toISOString().split('T')[1].substr(0, 5)}
+                      </button>
+                    </div>
                    </li>
+                   <div className={`${index===0} || ${indexArr.includes(index+1) ? 'w-100' : 'd-none'}`}></div>
+                  </>
                  )
               })}
             </ul>
