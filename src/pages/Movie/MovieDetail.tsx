@@ -40,7 +40,13 @@ const DetailInfo = () => {
       const url = process.env.REACT_APP_REMOTE_URL
       const res = await axios.get(`${url}/api/screens/${id}/playDate`)
 
-      const filterData = res.data.data.sort((a:any, b:any) => a.screen.startDate.localeCompare(b.screen.startDate, 'zh-TW'))
+      setMovieData(res.data.data);
+      setLoading(false);
+    })();    
+  }, []);
+
+  useEffect(()=>{
+    const filterData = movieData.sort((a:any, b:any) => a.screen.startDate.localeCompare(b.screen.startDate, 'zh-TW'))
       const indexArray:any[] = []
       filterData.forEach((item:any, index:any, arr:any) => {
         if (index === 0) {
@@ -50,13 +56,9 @@ const DetailInfo = () => {
         }
       })
 
-      // setMovieData(res.data.data);
       setIndexArr(indexArray)
-      setMovieData(filterData);
-      setLoading(false);
-    })();    
-  }, []);
-  
+  },[movieData])
+
   return (
     <>
       <Loading isActive={isLoading}></Loading>
@@ -101,11 +103,11 @@ const DetailInfo = () => {
               </div>
             </div>
             <div className="bg-liner my-4"></div>
-            <ul className="list-group list-group-flush">
+            <ul className="list-group list-group-flush row">
 
               {movieData.map((item,index)=>{
                  return (
-                   <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 ps-0">
+                   <li key={item.screen._id} className="list-group-item bg-main boder border-0 text-white mb-4 col-3">
                    {/* <div key="item.screen._id">{item.formattedDate}</div> */}
                    <div className={`mb-3 ${indexArr.includes(index)? 'visable' :'invisible'}`}>{new Date(item.screen.startDate).toISOString().split('T')[0]}</div>
                   <div className="">
