@@ -14,8 +14,8 @@ interface order {
 export const MemberOrder: React.FC = ({}) => {
   const { memberOrder } = useOutletContext<any>();
   
-  useEffect(() => {
-    console.log(memberOrder);    
+  useEffect(() => { 
+    memberOrder.reverse()
   },[])
 
   const [currentPage, setCurrentPage] = useState<number>(1);
