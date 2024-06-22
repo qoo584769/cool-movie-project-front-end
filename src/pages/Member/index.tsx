@@ -12,18 +12,24 @@ export const Member: React.FC = () => {
     email: "",
     nickName: "",
     phoneNumber: "",
-    profilePic: "",
+    profilePic: ""
   });
   const [memberOrder, setMemberOrder] = useState([]);
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const { data: response } = await getMember();        
+        const { data: response } = await getMember();
         if (response.status) {
           const { data: memberInfo } = response;
-          const { birthday, email, nickName, phoneNumber, profilePic, orderId } =
-            memberInfo;
+          const {
+            birthday,
+            email,
+            nickName,
+            phoneNumber,
+            profilePic,
+            orderId
+          } = memberInfo;
           setMember({
             birthday: birthday
               ? format(new Date(birthday), "yyyy-MM-dd")
@@ -31,9 +37,10 @@ export const Member: React.FC = () => {
             email: email || "無資料",
             nickName: nickName || "無資料",
             phoneNumber: phoneNumber || "無資料",
-            profilePic: profilePic || "/images/member/default_avatar.svg",
+            profilePic: profilePic || "/images/member/default_avatar.svg"
           });
-          setMemberOrder(orderId)
+          orderId.reverse();
+          setMemberOrder(orderId);
           return;
         }
         alert(response.message);
@@ -55,11 +62,10 @@ export const Member: React.FC = () => {
               <div
                 className="member-sidebar-user-avatar align-self-center rounded-circle overflow-hidden mb-1"
                 style={{
-                  backgroundImage: `url(${member.profilePic})`,
+                  backgroundImage: `url(${member.profilePic})`
                 }}
               ></div>
-              <div className="member-sidebar-user-nickname text-center">
-              </div>
+              <div className="member-sidebar-user-nickname text-center"></div>
               <hr className="my-2" />
               <div className="member-sidebar-user-name">
                 <p className="text-muted">會員</p>
