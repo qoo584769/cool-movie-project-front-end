@@ -1,32 +1,20 @@
-## 前端環境架設
+## 專案簡介
 
-2023/4/7提交:
-1. 初步環境設置(react+typescript+sass+styped-components)
-2. 拆分元件/分頁/路由設定
-3. 建立store
-4. 首頁資料定義
+提供一個 `模擬購買電影票` 的網頁應用程式
 
-2023/4/8提交:
-1. 加入Login Component
-2. 增加NavBar，並加入登入/登出按鈕
-3. 增加member路由及頁面
+[Live Demo](https://crazymovieweb.onrender.com/)
 
-## 專案啟動
-- 終端機輸入 npm ci 安裝。 
-- 使用 npm ci 安裝保持版本一致，新套件再使用 npm i xxx
+## 主要功能
 
-## 關閉Typescript 偵測
-```
-  請將下面的屬性，貼到typescript.config，即可關閉typescript偵測，然後重新啟用專案npm run start，就可以在不偵測typescript的環填下開發了
-    "strict": false,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "skipLibCheck": true,
-```
+- 會員登入
+- 購買電影票券
+- 模擬金流付款功能
+- 會員查看購票紀錄
+- 發送付款成功信件
 
-參考這個圖，關閉與開啟typescript的typescript.config檔
-![圖片](https://user-images.githubusercontent.com/39715455/233432042-28ddf446-284c-42f8-aee6-4c7e7889a41e.png)
+## 使用技術
 
-```
+- 前台 : [react](https://react.dev/) [typescript](https://www.typescriptlang.org/) [tailwindcss](https://tailwindcss.com/) [vite](https://vitejs.dev/)
+- 後台 : [vue](https://vuejs.org/) [tailwindcss](https://tailwindcss.com/) [vite](https://vitejs.dev/)
+- 後端 : [nodejs](https://nodejs.org/zh-cn)
+- 資料庫 : [mongoDB](https://www.mongodb.com/)
